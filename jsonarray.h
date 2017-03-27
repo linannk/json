@@ -24,6 +24,8 @@ public:
         bool operator !=(const iterator& other) const;
         iterator& operator++();
         iterator& operator--();
+        iterator& operator+=(std::size_t offset);
+        iterator& operator-=(std::size_t offset);
         vec_type::pointer operator->();
         vec_type::reference operator*();
     private:
@@ -44,6 +46,8 @@ public:
         bool operator !=(const const_iterator& other) const;
         const_iterator& operator++();
         const_iterator& operator--();
+        const_iterator& operator+=(std::size_t offset);
+        const_iterator& operator-=(std::size_t offset);
         vec_type::const_pointer operator->();
         vec_type::const_reference operator*();
     private:
@@ -68,8 +72,9 @@ public:
     void push_back(JsonValue&& value);
     void pop_back();
 
-    void insert(iterator iter, const JsonValue& value);
     void insert(iterator iter, JsonValue&& value);
+    void insert(iterator iter, const JsonValue& value);
+    void insert(iterator iter, std::size_t n, const JsonValue& value);
 
     inline iterator begin();
     inline iterator end();

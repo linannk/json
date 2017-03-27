@@ -137,9 +137,14 @@ void JsonArray::insert(JsonArray::iterator iter, const JsonValue &value)
     d_entries.insert(iter.d_iter, value);
 }
 
+void JsonArray::insert(JsonArray::iterator iter, size_t n, const JsonValue &value)
+{
+    d_entries.insert(iter.d_iter, n, value);
+}
+
 void JsonArray::insert(JsonArray::iterator iter, JsonValue &&value)
 {
-    d_entries.insert(iter.d_iter, std::move(value));
+    d_entries.emplace(iter.d_iter, std::move(value));
 }
 
 JsonArray::iterator &JsonArray::iterator::operator =(const JsonArray::iterator &other)
@@ -169,6 +174,18 @@ JsonArray::iterator &JsonArray::iterator::operator++()
 JsonArray::iterator &JsonArray::iterator::operator--()
 {
     --d_iter;
+    return *this;
+}
+
+JsonArray::iterator &JsonArray::iterator::operator+=(std::size_t offset)
+{
+    d_iter += offset;
+    return *this;
+}
+
+JsonArray::iterator &JsonArray::iterator::operator-=(std::size_t offset)
+{
+    d_iter -= offset;
     return *this;
 }
 
@@ -209,6 +226,18 @@ JsonArray::const_iterator &JsonArray::const_iterator::operator++()
 JsonArray::const_iterator &JsonArray::const_iterator::operator--()
 {
     --d_iter;
+    return *this;
+}
+
+JsonArray::const_iterator &JsonArray::const_iterator::operator+=(size_t offset)
+{
+    d_iter += offset;
+    return *this;
+}
+
+JsonArray::const_iterator &JsonArray::const_iterator::operator-=(size_t offset)
+{
+    d_iter -= offset;
     return *this;
 }
 
