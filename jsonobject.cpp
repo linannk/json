@@ -6,47 +6,6 @@
 #include <iostream>
 
 BEGIN_JSON_NAMESPACE
-JsonObject::JsonObject() {}
-
-JsonObject::JsonObject(const JsonObject &other)
-    : d_entries(other.d_entries)
-{}
-
-JsonObject::JsonObject(JsonObject &&other)
-    : d_entries(std::move(other.d_entries))
-{}
-
-JsonObject& json::JsonObject::operator =(const JsonObject &other) {
-    if (this != &other) {
-        this->d_entries = other.d_entries;
-    }
-    return *this;
-}
-
-JsonObject& JsonObject::operator =(JsonObject &&other) {
-    if (this != &other) {
-        this->d_entries = std::move(other.d_entries);
-    }
-    return *this;
-}
-
-bool JsonObject::operator ==(const JsonObject &other) const
-{
-    return d_entries == other.d_entries;
-}
-
-bool JsonObject::operator !=(const JsonObject &other) const
-{
-    return d_entries != other.d_entries;
-}
-
-bool JsonObject::hasKey(const std::string &key) const
-{
-    return d_entries.end() != d_entries.find(key);
-}
-
-JsonObject::~JsonObject()
-{}
 
 void JsonObject::parseJsonObject(JsonCharSeq &charSeq, bool parseLeadingChar)
 {
@@ -150,10 +109,10 @@ FUNC_STEP3:
 FUNC_STEP4:
         JsonValue value;
         value.parseJsonValue(charSeq);
-        this->d_entries.emplace(key, value);
+        this->emplace(std::move(key), std::move(value));
     }
 
-//! [5] FUNC_STEP5: EXPECT chars are ',' and '}'
+    //! [5] FUNC_STEP5: EXPECT chars are ',' and '}'
     while((c = charSeq.getChar())) {
         if (c == ',') {
             goto FUNC_STEP1;
@@ -172,21 +131,6 @@ FUNC_STEP4:
 FUNC_STEP6:;
 }
 
-JsonValue &JsonObject::operator[](const std::string &key)
-{
-    return d_entries[key];
-}
-
-JsonObject::iterator JsonObject::find(const std::string &key)
-{
-    return iterator(d_entries.find(key));
-}
-
-JsonObject::const_iterator JsonObject::find(const std::string &key) const
-{
-    return const_iterator(d_entries.find(key));
-}
-
 bool JsonObject::parseFromCharSeq(JsonCharSeq &charSeq)
 {
     try {
@@ -199,88 +143,6 @@ bool JsonObject::parseFromCharSeq(JsonCharSeq &charSeq)
         std::cerr << e.what() << std::endl;
         return false;
     }
-}
-
-JsonObject::iterator::iterator()
-{}
-
-JsonObject::iterator &JsonObject::iterator::operator =(const JsonObject::iterator &other)
-{
-    if (this != &other) {
-        d_iter = other.d_iter;
-    }
-    return *this;
-}
-
-bool JsonObject::iterator::operator ==(const JsonObject::iterator &other) const
-{
-    return d_iter == other.d_iter;
-}
-
-bool JsonObject::iterator::operator !=(const JsonObject::iterator &other) const
-{
-    return d_iter != other.d_iter;
-}
-
-JsonObject::iterator &JsonObject::iterator::operator++()
-{
-    ++d_iter; return *this;
-}
-
-JsonObject::iterator &JsonObject::iterator::operator--()
-{
-    --d_iter; return *this;
-}
-
-JsonObject::map_type::pointer JsonObject::iterator::operator->()
-{
-    return d_iter.operator ->();
-}
-
-JsonObject::map_type::reference JsonObject::iterator::operator*()
-{
-    return d_iter.operator *();
-}
-
-JsonObject::const_iterator::const_iterator()
-{}
-
-JsonObject::const_iterator &JsonObject::const_iterator::operator =(const JsonObject::const_iterator &other)
-{
-    if (this != &other) {
-        d_iter = other.d_iter;
-    }
-    return *this;
-}
-
-bool JsonObject::const_iterator::operator ==(const JsonObject::const_iterator &other) const
-{
-    return d_iter == other.d_iter;
-}
-
-bool JsonObject::const_iterator::operator !=(const JsonObject::const_iterator &other) const
-{
-    return d_iter != other.d_iter;
-}
-
-JsonObject::const_iterator &JsonObject::const_iterator::operator++()
-{
-    ++d_iter; return *this;
-}
-
-JsonObject::const_iterator &JsonObject::const_iterator::operator--()
-{
-    --d_iter; return *this;
-}
-
-JsonObject::map_type::const_pointer JsonObject::const_iterator::operator->()
-{
-    return d_iter.operator ->();
-}
-
-JsonObject::map_type::const_reference JsonObject::const_iterator::operator*()
-{
-    return d_iter.operator *();
 }
 
 END_JSON_NAMESPACE

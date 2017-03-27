@@ -8,7 +8,7 @@
 int main(int argc, char *argv[])
 {
     json::JsonObject json_object;
-    json::JsonFileCharSeq json_file_seq("/home/linan/Desktop/1.json");
+    json::JsonFileCharSeq json_file_seq("C:\\Users\\linan\\Desktop\\1.json");
     json_object.parseFromCharSeq(json_file_seq);
     for (auto i : json_object) {
         std::cout << i.first << std::endl;
