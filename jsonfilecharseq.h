@@ -17,17 +17,8 @@ public:
         }
     }
 
-    char getChar() {
-        if (!d_fp) {
-            return 0;
-        }
-        int c = fgetc(d_fp);
-        if (c == -1) {
-            return 0;
-        }
-        else {
-            return static_cast<char>(c);
-        }
+    int getChar() {
+        return d_fp ? fgetc(d_fp) : -1;
     }
 
 private:

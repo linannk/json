@@ -2,11 +2,47 @@
 #include "jsonarray.h"
 #include "jsonobject.h"
 #include "jsoncharseq.h"
+#include "jsoncode.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
 
 BEGIN_JSON_NAMESPACE
+
+static std::string json_number_string(int c, JsonCharSeq& charSeq)
+{
+    std::string ret;
+    if (c == '.') {
+        while ((c = charSeq.getChar()) != -1) {
+            if (isdigit(c)) {
+
+            }
+            else if (c == 'f' || c == 'F')
+            {
+
+            }
+            else {
+                throw std::runtime_error("Invalid char encountered " + charSeq.json_invalid_chars(c));
+            }
+        }
+    }
+    else if (c == '+') {
+
+    }
+    else if (c == '-') {
+
+    }
+    else if (c == '0') {
+
+    }
+    else if (isdigit(c)) {
+
+    }
+    else {
+
+    }
+}
+
 JsonValue::JsonValue()
     : d_valueType(JSON_NULL)
 {
@@ -283,7 +319,7 @@ void JsonValue::parseJsonValue(JsonCharSeq &charSeq)
         if (isspace(c)) {
             continue;
         }
-        else if (c == '\"') {
+        if (c == '\"') {
             std::string str;
             while((c = charSeq.getChar())) {
                 if (c == '\\') {
@@ -317,8 +353,14 @@ void JsonValue::parseJsonValue(JsonCharSeq &charSeq)
                         case 'u':
                             std::cerr << "\\u IS NOT IMPLEMENTED NOW" << std::endl;
                             break;
-                        default:
-                            throw std::logic_error(std::string("Unexpected char encountered: ") + c);
+                        default: {
+                            std::string str;
+                            str.reserve(128);
+                            for (int i = 1; i < json_char_count(c); ++i) {
+                                str.push_back(charSeq.getChar());
+                            }
+                            throw std::logic_error(std::string("Unexpected char encountered: ") + str);
+                        }
                             break;
                         }
                     }
@@ -333,6 +375,9 @@ void JsonValue::parseJsonValue(JsonCharSeq &charSeq)
                 }
                 else {
                     str.push_back(c);
+                    for (int i = 1; i < charSeq.json_char_count(c); ++i) {
+                        str.push_back(charSeq.getChar());
+                    }
                 }
             }
         }
@@ -348,61 +393,94 @@ void JsonValue::parseJsonValue(JsonCharSeq &charSeq)
             this->d_objectValue->parseJsonObject(charSeq, false);
             goto FUNC_STEP1;
         }
-        else if (c == '-') {
+        else if (isdigit(c)) {
 
+        }
+        else if (c == '-') {
+            while ((c = charSeq.getChar()) != -1) {
+                if (c == '.') {
+
+                }
+                else if (isdigit(c)) {
+
+                }
+                else {
+
+                }
+            }
         }
         else if (c == '+') {
+            while ((c = charSeq.getChar()) != -1) {
+                if (c == '.') {
 
+                }
+                else if (isdigit(c)) {
+
+                }
+                else {
+
+                }
+            }
         }
         else if (c == '.') {
+            while ((c = charSeq.getChar()) != -1) {
+                if (c == '.') {
 
+                }
+                else if (isdigit(c)) {
+
+                }
+                else {
+
+                }
+            }
         }
         else if (c == 't') {
-            if ('r' != charSeq.getChar()) {
-
+            if ((c= charSeq.getChar()) != 'r') {
+                throw std::runtime_error("Expected \"r\", but \"" + charSeq.json_invalid_chars(c) + "\" is encontered!");
             }
-            if ('u' != charSeq.getChar()) {
-
+            if ((c = charSeq.getChar()) != 'u') {
+                throw std::runtime_error("Expected \"u\", but \"" + charSeq.json_invalid_chars(c) + "\" is encontered!");
             }
-            if ('e' != charSeq.getChar()) {
-
+            if ((c = charSeq.getChar()) != 'e') {
+                throw std::runtime_error("Expected \"e\", but \"" + charSeq.json_invalid_chars(c) + "\" is encontered!");
             }
             this->d_valueType = JSON_BOOLEAN;
             this->d_boolValue = true;
             goto FUNC_STEP1;
         }
         else if (c == 'f') {
-            if ('a' != charSeq.getChar()) {
-
+            if ((c = charSeq.getChar()) != 'a') {
+                throw std::runtime_error("Expected \"a\", but \"" + charSeq.json_invalid_chars(c) + "\" is encontered!");
             }
-            if ('l' != charSeq.getChar()) {
-
+            if ((c = charSeq.getChar()) != 'l') {
+                throw std::runtime_error("Expected \"l\", but \"" + charSeq.json_invalid_chars(c) + "\" is encontered!");
             }
-            if ('s' != charSeq.getChar()) {
-
+            if ((c = charSeq.getChar()) != 's') {
+                throw std::runtime_error("Expected \"s\", but \"" + charSeq.json_invalid_chars(c) + "\" is encontered!");
             }
-            if ('e' != charSeq.getChar()) {
-
+            if ((c = charSeq.getChar()) != 'e') {
+                throw std::runtime_error("Expected \"e\", but \"" + charSeq.json_invalid_chars(c) + "\" is encontered!");
             }
             this->d_valueType = JSON_BOOLEAN;
-            this->d_boolValue = true;
+            this->d_boolValue = false;
             goto FUNC_STEP1;
         }
         else if (c == 'n') {
-            if ('u' != charSeq.getChar()) {
-
+            if ((c = charSeq.getChar()) != 'u') {
+                throw std::runtime_error("Expected \"r\", but \"" + charSeq.json_invalid_chars(c) + "\" is encontered!");
             }
-            if ('l' != charSeq.getChar()) {
-
+            if ((c = charSeq.getChar()) != 'l') {
+                throw std::runtime_error("Expected \"r\", but \"" + charSeq.json_invalid_chars(c) + "\" is encontered!");
             }
-            if ('l' != charSeq.getChar()) {
-
+            if ((c = charSeq.getChar()) != 'l') {
+                throw std::runtime_error("Expected \"r\", but \"" + charSeq.json_invalid_chars(c) + "\" is encontered!");
             }
             this->d_valueType = JSON_NULL;
             goto FUNC_STEP1;
         }
         else {
-            throw std::logic_error(std::string("Unexpected char: '") + c + "' encountered.");
+            throw std::runtime_error("Unexpected char: '" + charSeq.json_invalid_chars(c) + "' encountered.");
         }
     }
 

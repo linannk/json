@@ -9,10 +9,10 @@ BEGIN_JSON_NAMESPACE
 
 void JsonArray::parseJsonArray(JsonCharSeq &charSeq, bool parseLeadingChar)
 {
-    char c = 0;
+    int c = 0;
     if (parseLeadingChar) {
     //![0] FUNC_STEP0: EXPECT char is '['
-        while ((c = charSeq.getChar())) {
+        while ((c = charSeq.getChar()) != -1) {
             if (isspace(c)) {
                 continue;
             }
@@ -20,7 +20,7 @@ void JsonArray::parseJsonArray(JsonCharSeq &charSeq, bool parseLeadingChar)
                 goto FUNC_STEP1;
             }
             else {
-                throw std::logic_error(std::string("Unexpected char: '") + c + "' encountered.");
+                throw std::logic_error(std::string("Unexpected char: '") + charSeq.json_invalid_chars(c) + "' encountered.");
             }
         }
     }
@@ -30,7 +30,7 @@ FUNC_STEP1:
         JsonValue value;
         value.parseJsonValue(charSeq);
         this->push_back(std::move(value));
-        while ((c = charSeq.getChar())) {
+        while ((c = charSeq.getChar()) != -1) {
             if (c == ']') {
                 goto FUNC_STEP2;
             }
@@ -41,7 +41,7 @@ FUNC_STEP1:
                 continue;
             }
             else {
-                throw std::logic_error(std::string("Unexpected char: '") + c + "' encountered.");
+                throw std::logic_error("Unexpected char: '" + charSeq.json_invalid_chars(c) + "' encountered.");
             }
         }
     }

@@ -15,13 +15,13 @@ public:
         , d_str(str)
     {}
 
-    char getChar() {
+    int getChar() {
         if (d_idx < d_str.size()) {
             char ret = d_str[d_idx];
             ++d_idx;
             return ret;
         }
-        return 0;
+        return -1;
     }
 
 private:

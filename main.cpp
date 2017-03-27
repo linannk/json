@@ -12,6 +12,13 @@ int main(int argc, char *argv[])
     json_object.parseFromCharSeq(json_file_seq);
     for (auto i : json_object) {
         std::cout << i.first << std::endl;
+        for (auto j : i.second.toObject()) {
+            std::cout << '\t' << j.first << "=>";
+            for (auto k : j.second.toArray()) {
+                std::cout << k.toString() << ", ";
+            }
+            std::cout << std::endl;
+        }
     }
     return 0;
 }

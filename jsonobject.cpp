@@ -1,6 +1,7 @@
 #include "jsonobject.h"
 #include "jsonvalue.h"
 #include "jsoncharseq.h"
+#include "jsoncode.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
@@ -10,9 +11,11 @@ BEGIN_JSON_NAMESPACE
 void JsonObject::parseJsonObject(JsonCharSeq &charSeq, bool parseLeadingChar)
 {
     char c = 0;
-    if (parseLeadingChar) {
-    //![0] FUNC_STEP0: EXPECT char is '{'
-        while((c = charSeq.getChar())) {
+    if (parseLeadingChar)
+    {
+        //![0] FUNC_STEP0: EXPECT char is '{'
+        while((c = charSeq.getChar()) != -1)
+        {
             if (c == '{') {
                 goto FUNC_STEP1;
             }
@@ -20,14 +23,13 @@ void JsonObject::parseJsonObject(JsonCharSeq &charSeq, bool parseLeadingChar)
                 continue;
             }
             else {
-                throw std::logic_error(std::string("Expected '{', but ") + c + " is encountered.");
-                return;
+                throw std::runtime_error("Expected '{', but \"" + charSeq.json_invalid_chars(c) + "\" is encountered.");
             }
         }
     }
 
 FUNC_STEP1:
-    while((c = charSeq.getChar())) {
+    while((c = charSeq.getChar()) != -1) {
         if (c == '\"') {
             goto FUNC_STEP2;
         }
@@ -35,16 +37,16 @@ FUNC_STEP1:
             continue;
         }
         else {
-            throw std::logic_error(std::string("Expected '\"', but ") + c + " is encountered.");
+            throw std::runtime_error(std::string("Expected '\"', but \"") + charSeq.json_invalid_chars(c) + "\" is encountered.");
         }
     }
 
 FUNC_STEP2:
     {
         std::string key;
-        while((c = charSeq.getChar())) {
+        while((c = charSeq.getChar()) != -1) {
             if (c == '\\') {
-                if ((c = charSeq.getChar())) {
+                if ((c = charSeq.getChar()) != -1) {
                     switch(c) {
                     case '\"':
                         key.push_back('\"');
@@ -77,12 +79,13 @@ FUNC_STEP2:
                         key.push_back('u');
                         break;
                     default:
-                        throw std::logic_error(std::string("Unexpected char encountered: ") + c);
+                        //! Todo: add more details about the error.
+                        throw std::runtime_error("Unexpected char encountered: " + charSeq.json_invalid_chars(c));
                         break;
                     }
                 }
                 else {
-                    throw std::logic_error("Unexpected end of char sequence.");
+                    throw std::runtime_error("Unexpected end of char sequence.");
                 }
             }
             else if (c == '\"') {
@@ -90,6 +93,15 @@ FUNC_STEP2:
             }
             else {
                 key.push_back(c);
+                for (int i = 1; i < charSeq.json_char_count(c); ++i) {
+                    if ((c = charSeq.getChar()) != -1) {
+                        key.push_back(c);
+                    }
+                    else {
+                        //! Todo: add more information about the error.
+                        throw std::runtime_error("Unexpected end of char sequence.");
+                    }
+                }
             }
         }
 
@@ -102,7 +114,7 @@ FUNC_STEP3:
                 continue;
             }
             else {
-                throw std::logic_error(std::string("Expected ':', but ") + c + " is encountered.");
+                throw std::runtime_error("Expected ':', but \"" + charSeq.json_invalid_chars(c) + "\" is encountered.");
             }
         }
 
@@ -113,7 +125,7 @@ FUNC_STEP4:
     }
 
     //! [5] FUNC_STEP5: EXPECT chars are ',' and '}'
-    while((c = charSeq.getChar())) {
+    while((c = charSeq.getChar()) != -1) {
         if (c == ',') {
             goto FUNC_STEP1;
         }
@@ -124,11 +136,13 @@ FUNC_STEP4:
             continue;
         }
         else {
-            throw std::logic_error(std::string("Expected '}' or ',', but ") + c + " is encountered.");
+            throw std::runtime_error("Expected '}' or ',', but \"" + charSeq.json_invalid_chars(c) + "\" is encountered.");
         }
     }
 
-FUNC_STEP6:;
+FUNC_STEP6:
+    //! Todo: Check following char sequence.
+    ;
 }
 
 bool JsonObject::parseFromCharSeq(JsonCharSeq &charSeq)
