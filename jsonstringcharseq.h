@@ -1,9 +1,10 @@
 #ifndef JSONSTRINGCHARSEQ_H
 #define JSONSTRINGCHARSEQ_H
-#include "jsoncharseq.h"
+#include "jsoninputstream.h"
 #include <string>
+#include <stdexcept>
 BEGIN_JSON_NAMESPACE
-class JsonStringCharSeq : public JsonCharSeq {
+class JsonStringCharSeq : public JsonInputStream {
 public:
     explicit JsonStringCharSeq(const std::string& str)
         : d_idx(0)
@@ -21,7 +22,14 @@ public:
             ++d_idx;
             return ret;
         }
-        return -1;
+        else {
+            throw std::runtime_error("Unexpected end of file");
+        }
+    }
+
+    int ungetChar() {
+        --d_idx;
+        return 1;
     }
 
 private:

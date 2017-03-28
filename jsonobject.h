@@ -6,14 +6,14 @@
 
 BEGIN_JSON_NAMESPACE
 class JsonValue;
-class JsonCharSeq;
+class JsonInputStream;
 
 class JsonObject
     : public std::map<std::string, JsonValue>
 {
 public:
-    void parseJsonObject(JsonCharSeq& charSeq, bool parseLeadingChar = true);
-    bool parseFromCharSeq(JsonCharSeq& charSeq);
+    void parseJsonObject(JsonInputStream& charSeq, bool parseLeadingChar = true);
+    bool parseFromInputStream(JsonInputStream& charSeq);
 };
 
 END_JSON_NAMESPACE

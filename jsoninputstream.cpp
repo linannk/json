@@ -1,12 +1,12 @@
-#include "jsoncharseq.h"
+#include "jsoninputstream.h"
 BEGIN_JSON_NAMESPACE
 
-int JsonCharSeq::json_char_count(int c)
+int JsonInputStream::json_char_count(int c)
 {
     return 1;
 }
 
-std::string JsonCharSeq::json_invalid_chars(int c) {
+std::string JsonInputStream::json_invalid_chars(int c) {
     std::string invalid_char;
     invalid_char.reserve(128);
     invalid_char.push_back(c);

@@ -1,10 +1,10 @@
 #ifndef JSONFILECHARSEQ_H
 #define JSONFILECHARSEQ_H
-#include "jsoncharseq.h"
+#include "jsoninputstream.h"
 #include <stdio.h>
 
 BEGIN_JSON_NAMESPACE
-class JsonFileCharSeq : public JsonCharSeq
+class JsonFileCharSeq : public JsonInputStream
 {
 public:
     JsonFileCharSeq(const char* filename)
@@ -19,6 +19,13 @@ public:
 
     int getChar() {
         return d_fp ? fgetc(d_fp) : -1;
+    }
+
+    int ungetChar() {
+        if (d_fp) {
+            fseek(d_fp, -1, SEEK_CUR);
+        }
+        return 1;
     }
 
 private:

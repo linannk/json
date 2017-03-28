@@ -5,14 +5,14 @@
 
 BEGIN_JSON_NAMESPACE
 class JsonValue;
-class JsonCharSeq;
+class JsonInputStream;
 
 class JsonArray
     : public std::vector<JsonValue>
 {
 public:
-    void parseJsonArray(JsonCharSeq& charSeq, bool parseLeadingChar = true);
-    bool parseFromCharSeq(JsonCharSeq& charSeq);
+    void parseJsonArray(JsonInputStream& charSeq, bool parseLeadingChar = true);
+    bool parseFromInputStream(JsonInputStream& charSeq);
 };
 
 END_JSON_NAMESPACE

@@ -15,9 +15,8 @@ enum JsonValueType {
 };
 
 class JsonObject;
-class JsonValue;
 class JsonArray;
-class JsonCharSeq;
+class JsonInputStream;
 
 class JsonValue {
 public:
@@ -32,7 +31,6 @@ public:
 
     bool operator ==(const JsonValue& other) const;
     bool operator !=(const JsonValue& other) const;
-
 
     inline JsonValue& operator =(bool b);
     inline JsonValue& operator =(float f);
@@ -61,8 +59,8 @@ public:
     JsonArray toArray() const;
     JsonObject toObject() const;
 
-    void parseJsonValue(JsonCharSeq& charSeq);
-    bool parseFromCharSeq(JsonCharSeq &charSeq);
+    void parseJsonValue(JsonInputStream& charSeq);
+    bool parseFromCharSeq(JsonInputStream &charSeq);
 private:
     JsonValueType d_valueType;
     union {
