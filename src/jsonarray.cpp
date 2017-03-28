@@ -1,6 +1,6 @@
 #include "jsonarray.h"
 #include "jsonvalue.h"
-#include "jsonistream.h"
+#include "io/jsonistream.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
@@ -68,6 +68,33 @@ bool JsonArray::parseFromInputStream(JsonIStream &charSeq)
         std::cerr << e.what() << std::endl;
         return false;
     }
+}
+
+bool JsonArray::serializeToOStream(std::ostream * os, int tab_size) const
+{
+    *os << '[' << std::endl;
+    for (std::size_t i = 0; i < this->size() - 1; ++i) {
+        for (int j = 0; j < tab_size + JSON_TAB_OFFSET; ++j) {
+            *os << ' ';
+        }
+        this->operator[](i).serializeToOStream(os, tab_size + JSON_TAB_OFFSET);
+        *os << ',' << std::endl;
+    }
+    for (int j = 0; j < tab_size + JSON_TAB_OFFSET; ++j) {
+        *os << ' ';
+    }
+    this->operator[](this->size() - 1).serializeToOStream(os, tab_size + JSON_TAB_OFFSET);
+    *os << std::endl;
+    for (int j = 0; j < tab_size; ++j) {
+        *os << ' ';
+    }
+    *os << " ]";
+    return os->operator bool();
+}
+
+std::ostream& operator << (std::ostream& os, const JSON_NAMESPACE::JsonArray& array)
+{
+    return os;
 }
 
 END_JSON_NAMESPACE

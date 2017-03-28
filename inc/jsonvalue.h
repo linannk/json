@@ -32,6 +32,18 @@ public:
     bool operator ==(const JsonValue& other) const;
     bool operator !=(const JsonValue& other) const;
 
+    //! Call this function will make JsonValue to JsonObject
+    JsonValue& operator[](const std::string &key);
+
+    //! If isArray() returns false, call this function maybe cause undefined behavior.
+    JsonValue& operator[](std::size_t idx);
+
+    void push_back(const JsonValue& other);
+    void push_back(JsonValue&& other);
+
+    void insert(const std::string& key, const JsonValue& value);
+    void insert(const std::string& key, JsonValue&& value);
+
     inline JsonValue& operator =(bool b);
     inline JsonValue& operator =(float f);
     inline JsonValue& operator =(double d);
@@ -69,6 +81,7 @@ public:
 
     void parseJsonValue(JsonIStream& charSeq);
     bool parseFromInputStream(JsonIStream &charSeq);
+    bool serializeToOStream(std::ostream* os, int tab_size) const;
 private:
     JsonValueType d_valueType;
     union {

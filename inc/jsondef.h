@@ -5,6 +5,8 @@
 #define BEGIN_JSON_NAMESPACE namespace JSON_NAMESPACE {
 #define END_JSON_NAMESPACE }
 
+#define JSON_TAB_OFFSET 2
+
 #define JSON_COMMA ','
 #define JSON_QUOTE '\"'
 #define JSON_OPENBRACE '{'

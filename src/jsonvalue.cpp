@@ -1,7 +1,7 @@
 #include "jsonvalue.h"
 #include "jsonarray.h"
 #include "jsonobject.h"
-#include "jsonistream.h"
+#include "io/jsonistream.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
@@ -208,6 +208,58 @@ bool JsonValue::operator !=(const JsonValue &other) const
     return !(*this == other);
 }
 
+JsonValue & JsonValue::operator[](const std::string & key)
+{
+    // TODO: insert return statement here
+    if (!isObject()) {
+        this->clear();
+        this->d_objectValue = new JsonObject();
+    }
+    return d_objectValue->operator[](key);
+}
+
+JsonValue & JsonValue::operator[](std::size_t idx)
+{
+    // TODO: insert return statement here
+    return this->d_arrayValue->operator[](idx);
+}
+
+void JsonValue::push_back(const JsonValue & other)
+{
+    if (!isArray()) {
+        this->clear();
+        this->d_arrayValue = new JsonArray();
+    }
+    this->d_arrayValue->push_back(other);
+}
+
+void JsonValue::push_back(JsonValue && other)
+{
+    if (!isArray()) {
+        this->clear();
+        this->d_arrayValue = new JsonArray();
+    }
+    this->d_arrayValue->push_back(std::move(other));
+}
+
+void JsonValue::insert(const std::string & key, const JsonValue & value)
+{
+    if (!isObject()) {
+        this->clear();
+        this->d_objectValue = new JsonObject();
+    }
+    this->d_objectValue->emplace(key, value);
+}
+
+void JsonValue::insert(const std::string & key, JsonValue && value)
+{
+    if (!isObject()) {
+        this->clear();
+        this->d_objectValue = new JsonObject();
+    }
+    this->d_objectValue->emplace(key, std::move(value));
+}
+
 bool JsonValue::toBoolean() const
 {
     if (d_valueType == JSON_BOOLEAN) {
@@ -274,6 +326,51 @@ bool JsonValue::parseFromInputStream(JsonIStream &charSeq)
         std::cerr << e.what() << std::endl;
         return false;
     }
+}
+
+bool JsonValue::serializeToOStream(std::ostream * os, int tab_size) const
+{
+    switch (this->d_valueType) {
+    case JSON_NULL:
+        *os << "null";
+        break;
+    case JSON_BOOLEAN:
+        if (this->d_boolValue) {
+            *os << "true";
+        }
+        else {
+            *os << "false";
+        }
+        break;
+    case JSON_FLOAT:
+        *os << std::to_string(this->d_floatValue) + 'f';
+        break;
+    case JSON_DOUBLE:
+        *os << std::to_string(this->d_doubleValue);
+        break;
+    case JSON_ARRAY:
+        this->d_arrayValue->serializeToOStream(os, tab_size + JSON_TAB_OFFSET);
+        break;
+    case JSON_OBJECT:
+        this->d_objectValue->serializeToOStream(os, tab_size + JSON_TAB_OFFSET);
+        break;
+    case JSON_STRING:
+        for (auto ch : *d_stringValue) {
+            if (ch == '\"') {
+                *os << "\\\"";
+            }
+            else if (ch == '\\') {
+                *os << "\\\\";
+            }
+            else {
+                *os << ch;
+            }
+        }
+        break;
+    default:
+        break;
+    }
+    return os->operator bool();
 }
 
 void JsonValue::parseJsonValue(JsonIStream &charSeq)

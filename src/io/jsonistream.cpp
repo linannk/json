@@ -1,4 +1,4 @@
-#include "jsonistream.h"
+#include "io/jsonistream.h"
 BEGIN_JSON_NAMESPACE
 
 int JsonIStream::encode_char_count(int c)

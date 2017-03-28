@@ -1,18 +1,26 @@
 #include "jsonvalue.h"
 #include "jsonobject.h"
 #include "jsonarray.h"
-#include "jsonstringistream.h"
-#include "jsonutf8fileistream.h"
+#include "io/jsonstringistream.h"
+#include "io/jsonutf8fileistream.h"
 #include <stdio.h>
 #include <iostream>
 #include <chrono>
 
+json::JsonValue operator"" _json(const char* str, std::size_t i)
+{
+    std::cout << str << std::endl;
+    return json::JsonValue();
+}
+
 int main(int argc, char *argv[])
 {
+    auto j = R"({"name": "linan"})"_json;
+
     json::JsonObject json_object;
     const char* platform = "linux_x86";
     const char* workdir = ".";
-    const char* json_file = "/home/linan/Desktop/1.json";
+    const char* json_file = "C:\\Users\\linan\\Desktop\\1.json";
 
     json::JsonUtf8FileIStream json_file_seq(json_file);
 
@@ -22,25 +30,8 @@ int main(int argc, char *argv[])
 
     std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end - beg).count() << std::endl;
 
-//    return 0;
-    auto p_iter = json_object.find(platform);
-    if (p_iter == json_object.end()) {
-        std::cerr << platform << "is not found in json file." << std::endl;
-        return 1;
-    }
+    json_object.serializeToOStream(&std::cout, 0);
 
-    std::cout << json_object["version"].toString() << std::endl;
-    std::cout << p_iter->first << std::endl;
-    for (const auto& p : p_iter->second.toObject()) {
-        std::cout << "  " << p.first << std::endl;
-        for (const auto& l : p.second.toObject()) {
-            std::cout << "    " << l.first << std::endl;
-            for (const auto& i : l.second.toObject()) {
-                std::cout << "      " << i.first << " : " << i.second.toString() << std::endl;
-            }
-            std::cout << std::endl;
-        }
-    }
-
+    std::cout << std::endl;
     return 0;
 }

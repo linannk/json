@@ -1,6 +1,6 @@
 #include "jsonobject.h"
 #include "jsonvalue.h"
-#include "jsonistream.h"
+#include "io/jsonistream.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
@@ -182,6 +182,42 @@ bool JsonObject::parseFromInputStream(JsonIStream &charSeq)
         std::cerr << e.what() << std::endl;
         return false;
     }
+}
+
+bool JsonObject::serializeToOStream(std::ostream * os, int tab_size) const
+{
+    *os << '{' << std::endl;
+    for (auto i = this->begin(); i != this->end(); ++i) {
+        for (int j = 0; j < tab_size + JSON_TAB_OFFSET; ++j) {
+            *os << ' ';
+        }
+        *os << '\"';
+        for (auto ch : i->first) {
+            if (ch == '\"') {
+                *os << "\\\"";
+            }
+            else if (ch == '\\') {
+                *os << "\\\\";
+            }
+            else {
+                *os << ch;
+            }
+        }
+        *os << "\": ";
+        i->second.serializeToOStream(os, tab_size);
+        
+        auto tmp = i;
+        ++tmp;
+        if (tmp != this->end()) {
+            *os << ',';
+        }
+        *os << std::endl;
+    }
+    for (int j = 0; j < tab_size; ++j) {
+        *os << ' ';
+    }
+    *os << '}';
+    return os->operator bool();
 }
 
 END_JSON_NAMESPACE
