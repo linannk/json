@@ -4,13 +4,14 @@
 #include <string>
 
 BEGIN_JSON_NAMESPACE
-class JsonInputStream {
+
+class JsonIStream {
 public:
     /*!
      * \brief ~JsonCharSeq
      * Virtual destructor.
      */
-    virtual ~JsonInputStream() {}
+    virtual ~JsonIStream() {}
 
     /*!
      * \brief getChar get current char and move char-pointer to next
@@ -37,7 +38,7 @@ public:
 //     */
 //    virtual void backUp(size_t count) = 0;
 
-    virtual int json_char_count(int c);
+    virtual int encode_char_count(int c);
     std::string json_invalid_chars(int c);
 };
 

@@ -1,0 +1,874 @@
+{
+  "version": "4.6.0.20170228",
+  "lfs-server": "http://devcenter.bj.sensetime.com/api/v1/lfs/",
+  "linux_x86": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390\\",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "linux_x86_64": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "linux_armv7": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "linux_aarch64": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "mac_x86": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "mac_x86_64": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "ios_sim_x86_64": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "ios_sim_x86": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "ios_os_armv7": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "ios_os_arm64": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "android_x86": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "android_armv7": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "android_arm64": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "windows_x86": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  },
+  "windows_x86_64": {
+    "universal": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "fmath": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "ppl": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    },
+    "pplwrapper": {
+      "libuniversal_linux_x86.a": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      },
+      "libuniversal_linux_x86.so": {
+        "addr": "version https://git-lfs.github.com/spec/v1",
+        "oid sha256": "d8e83c36102b9017f8971037d83f28ed360eefe2f47e07aa440b4252802ffc2",
+        "size": "1989390",
+        "path": "dep/universal/linux_x86"
+      }
+    }
+  }
+}

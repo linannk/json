@@ -1,8 +1,8 @@
 #include "jsonvalue.h"
 #include "jsonobject.h"
 #include "jsonarray.h"
-#include "jsonstringcharseq.h"
-#include "jsonfilecharseq.h"
+#include "jsonstringistream.h"
+#include "jsonutf8fileistream.h"
 #include <stdio.h>
 #include <iostream>
 #include <chrono>
@@ -14,7 +14,7 @@ int main(int argc, char *argv[])
     const char* workdir = ".";
     const char* json_file = "/home/linan/Desktop/1.json";
 
-    json::JsonFileCharSeq json_file_seq(json_file);
+    json::JsonUtf8FileIStream json_file_seq(json_file);
 
     auto beg = std::chrono::high_resolution_clock::now();
     json_object.parseFromInputStream(json_file_seq);
@@ -22,7 +22,7 @@ int main(int argc, char *argv[])
 
     std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end - beg).count() << std::endl;
 
-    return 0;
+//    return 0;
     auto p_iter = json_object.find(platform);
     if (p_iter == json_object.end()) {
         std::cerr << platform << "is not found in json file." << std::endl;

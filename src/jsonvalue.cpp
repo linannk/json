@@ -1,8 +1,7 @@
 #include "jsonvalue.h"
 #include "jsonarray.h"
 #include "jsonobject.h"
-#include "jsoninputstream.h"
-#include "jsoncode.h"
+#include "jsonistream.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
@@ -263,7 +262,7 @@ JsonObject JsonValue::toObject() const
     return JsonObject();
 }
 
-bool JsonValue::parseFromCharSeq(JsonInputStream &charSeq)
+bool JsonValue::parseFromInputStream(JsonIStream &charSeq)
 {
     try {
         JsonValue tmpValue;
@@ -277,7 +276,7 @@ bool JsonValue::parseFromCharSeq(JsonInputStream &charSeq)
     }
 }
 
-void JsonValue::parseJsonValue(JsonInputStream &charSeq)
+void JsonValue::parseJsonValue(JsonIStream &charSeq)
 {
     char c = 0;
     //! [0] FUNC_STEP0: READ FIRST CHAR TO CHECK VALUE TYPE.
@@ -342,7 +341,7 @@ void JsonValue::parseJsonValue(JsonInputStream &charSeq)
                         }
                     }
                     else {
-                        throw std::runtime_error("Unexpected end of char sequence.");
+                        throw std::runtime_error("Unexpected end of JsonInputStream");
                     }
                 }
                 else if (c == '\"') {
@@ -352,11 +351,11 @@ void JsonValue::parseJsonValue(JsonInputStream &charSeq)
                 }
                 else {
                     str.push_back(c);
-                    const int char_count = charSeq.json_char_count(c);
+                    const int char_count = charSeq.encode_char_count(c);
                     for (int i = 1; i < char_count; ++i) {
                         c = charSeq.getChar();
                         if (c == -1) {
-                            throw std::runtime_error("Unexpected end of char sequence.");
+                            throw std::runtime_error("Unexpected end of JsonInputStream");
                         }
                         else {
                             str.push_back(c);
@@ -471,7 +470,6 @@ FUNC_NUMBER_STEP1:
                             goto FUNC_NUMBER_STEP2;
                         }
                         else {
-                            charSeq.ungetChar();
                             goto FUNC_NUMBER_DOUBLE;
                         }
                     }
@@ -481,11 +479,14 @@ FUNC_NUMBER_STEP2:
                 if (c == 'e' || c == 'E') {
                     number.push_back(c);
                     c = charSeq.getChar();
-                    if (c == '+' || c == '-') {
+                    if (isdigit(c)) {
+                        number.push_back(c);
+                    }
+                    else if (c == '+' || c == '-') {
                         number.push_back(c);
                     }
                     else {
-                        throw std::runtime_error("");
+                        throw std::runtime_error("Expect \"+\" or \"-\", but " + charSeq.json_invalid_chars(c) + " is encountered.");
                     }
                     for(;;) {
                         c = charSeq.getChar();
@@ -497,11 +498,12 @@ FUNC_NUMBER_STEP2:
                             goto FUNC_NUMBER_FLOAT;
                         }
                         else {
-                            charSeq.ungetChar();
                             goto FUNC_NUMBER_DOUBLE;
                         }
                     }
                 }
+
+                goto FUNC_NUMBER_DOUBLE;
 
 FUNC_NUMBER_FLOAT:
                 this->d_valueType = JSON_FLOAT;
@@ -509,6 +511,7 @@ FUNC_NUMBER_FLOAT:
                 goto FUNC_STEP1;
 
 FUNC_NUMBER_DOUBLE:
+                charSeq.ungetChar();
                 this->d_valueType = JSON_DOUBLE;
                 this->d_doubleValue = std::stod(number);
                 goto FUNC_STEP1;

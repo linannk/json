@@ -16,7 +16,7 @@ enum JsonValueType {
 
 class JsonObject;
 class JsonArray;
-class JsonInputStream;
+class JsonIStream;
 
 class JsonValue {
 public:
@@ -59,8 +59,16 @@ public:
     JsonArray toArray() const;
     JsonObject toObject() const;
 
-    void parseJsonValue(JsonInputStream& charSeq);
-    bool parseFromCharSeq(JsonInputStream &charSeq);
+    inline const std::string& const_string() const;
+    inline const JsonArray& const_array() const;
+    inline const JsonObject& const_object() const;
+
+    inline std::string* mutable_string();
+    inline JsonArray*   mutable_array();
+    inline JsonObject*  mutable_object();
+
+    void parseJsonValue(JsonIStream& charSeq);
+    bool parseFromInputStream(JsonIStream &charSeq);
 private:
     JsonValueType d_valueType;
     union {
@@ -147,6 +155,36 @@ bool JsonValue::isObject() const
 {
     return d_valueType == JSON_OBJECT;
 }
-END_JSON_NAMESPACE
 
+const std::string &JsonValue::const_string() const
+{
+    return *d_stringValue;
+}
+
+const JsonArray &JsonValue::const_array() const
+{
+    return *d_arrayValue;
+}
+
+const JsonObject &JsonValue::const_object() const
+{
+    return *d_objectValue;
+}
+
+std::string *JsonValue::mutable_string()
+{
+    return d_stringValue;
+}
+
+JsonArray *JsonValue::mutable_array()
+{
+    return d_arrayValue;
+}
+
+JsonObject *JsonValue::mutable_object()
+{
+    return d_objectValue;
+}
+
+END_JSON_NAMESPACE
 #endif // JSONVALUE_H

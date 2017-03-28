@@ -1,14 +1,13 @@
 #include "jsonobject.h"
 #include "jsonvalue.h"
-#include "jsoninputstream.h"
-#include "jsoncode.h"
+#include "jsonistream.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
 
 BEGIN_JSON_NAMESPACE
 
-void JsonObject::parseJsonObject(JsonInputStream &charSeq, bool parseLeadingChar)
+void JsonObject::parseJsonObject(JsonIStream &charSeq, bool parseLeadingChar)
 {
     char c = 0;
     if (parseLeadingChar)
@@ -63,7 +62,7 @@ FUNC_STEP2:
             {
                 c = charSeq.getChar();
                 if (c == -1) {
-                    throw std::runtime_error("Unexpected end of char sequence.");
+                    throw std::runtime_error("Unexpected end of JsonInputStream");
                 }
                 switch(c) {
                 case '\"':
@@ -106,17 +105,18 @@ FUNC_STEP2:
                 goto FUNC_STEP3;
             }
             else if (c == -1) {
-                throw std::runtime_error("Unexpected end of char sequence.");
+                throw std::runtime_error("Unexpected end of JsonInputStream");
             }
             else {
                 key.push_back(c);
-                for (int i = 1; i < charSeq.json_char_count(c); ++i) {
+                const int char_count = charSeq.encode_char_count(c);
+                for (int i = 1; i < char_count; ++i) {
                     if ((c = charSeq.getChar()) != -1) {
                         key.push_back(c);
                     }
                     else {
                         //! Todo: add more information about the error.
-                        throw std::runtime_error("Unexpected end of char sequence.");
+                        throw std::runtime_error("Unexpected end of JsonInputStream");
                     }
                 }
             }
@@ -170,7 +170,7 @@ FUNC_STEP6:
     ;
 }
 
-bool JsonObject::parseFromInputStream(JsonInputStream &charSeq)
+bool JsonObject::parseFromInputStream(JsonIStream &charSeq)
 {
     try {
         JsonObject tmpObject;

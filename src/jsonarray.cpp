@@ -1,13 +1,13 @@
 #include "jsonarray.h"
 #include "jsonvalue.h"
-#include "jsoninputstream.h"
+#include "jsonistream.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
 
 BEGIN_JSON_NAMESPACE
 
-void JsonArray::parseJsonArray(JsonInputStream &charSeq, bool parseLeadingChar)
+void JsonArray::parseJsonArray(JsonIStream &charSeq, bool parseLeadingChar)
 {
     int c = 0;
     if (parseLeadingChar)
@@ -26,7 +26,7 @@ void JsonArray::parseJsonArray(JsonInputStream &charSeq, bool parseLeadingChar)
                 throw std::runtime_error("Unexpected end of JsonInputStream");
             }
             else {
-                throw std::runtime_error(std::string("Unexpected char: '") + charSeq.json_invalid_chars(c) + "' encountered.");
+                throw std::runtime_error("Unexpected char: \"" + charSeq.json_invalid_chars(c) + "\"");
             }
         }
     }
@@ -48,7 +48,7 @@ FUNC_STEP1:
                 throw std::runtime_error("Unexpected end of JsonInputStream");
             }
             else {
-                throw std::logic_error("Unexpected char: '" + charSeq.json_invalid_chars(c) + "' encountered.");
+                throw std::logic_error("Unexpected char: \"" + charSeq.json_invalid_chars(c) + "\"");
             }
         }
     }
@@ -56,7 +56,7 @@ FUNC_STEP1:
 FUNC_STEP2:;
 }
 
-bool JsonArray::parseFromInputStream(JsonInputStream &charSeq)
+bool JsonArray::parseFromInputStream(JsonIStream &charSeq)
 {
     try {
         JsonArray tmpArray;
