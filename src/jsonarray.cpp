@@ -8,37 +8,167 @@
 BEGIN_JSON_NAMESPACE
 
 JsonArray::JsonArray()
-{}
+{
+}
+
+JsonArray::JsonArray(const JsonArray & other)
+    : d_arr(other.d_arr)
+{
+}
+
+JsonArray::JsonArray(JsonArray && lhs)
+    : d_arr(std::move(lhs.d_arr))
+{
+}
 
 JsonArray::JsonArray(const JsonValue &other)
-    : std::vector<JsonValue>(other.toArray())
-{}
+{
+    if (other.isArray()) {
+        d_arr = other.const_array().d_arr;
+    }
+}
 
 JsonArray::JsonArray(JsonValue &&other)
 {
     if (other.isArray()) {
-        this->swap(*other.mutable_array());
+        d_arr.swap(other.mutable_array()->d_arr);
     }
+    other.clear();
 }
 
 JsonArray::JsonArray(size_t n, const JsonValue &value)
-    : std::vector<JsonValue>(n, value)
+    : d_arr(n, value)
 {
+}
+
+JsonArray & JsonArray::operator=(const JsonArray & other)
+{
+    // TODO: insert return statement here
+    if (this != &other) {
+        JsonArray tmp(other);
+        swap(tmp);
+    }
+    return *this;
+}
+
+JsonArray & JsonArray::operator=(JsonArray && other)
+{
+    if (this != &other) {
+        JsonArray tmp(std::move(other));
+        swap(tmp);
+    }
+    return *this;
+    // TODO: insert return statement here
 }
 
 JsonArray &JsonArray::operator =(const JsonValue &value)
 {
-    *this = value.toArray();
+    if (value.isArray()) {
+        JsonArray tmp(value.const_array());
+        swap(tmp);
+    }
     return *this;
 }
 
 JsonArray &JsonArray::operator =(JsonValue &&value)
 {
-    this->clear();
     if (value.isArray()) {
-        this->swap(*value.mutable_array());
+        JsonArray tmp(std::move(*value.mutable_array()));
+        swap(tmp);
     }
+    value.clear();
     return *this;
+}
+
+bool JsonArray::operator==(const JsonArray & other) const
+{
+    if (this == &other) {
+        return true;
+    }
+    return d_arr == other.d_arr;
+}
+
+void JsonArray::push_back(const JsonValue & value)
+{
+    this->d_arr.push_back(value);
+}
+
+void JsonArray::push_back(JsonValue && value)
+{
+    this->d_arr.emplace_back(std::move(value));
+}
+
+void JsonArray::swap(JsonArray & other)
+{
+    if (this != &other) {
+        this->d_arr.swap(other.d_arr);
+    }
+}
+
+void JsonArray::insert(iterator iter, const JsonValue & value)
+{
+    d_arr.insert(iter, value);
+}
+
+void JsonArray::insert(iterator iter, JsonValue && value)
+{
+    d_arr.emplace(iter, std::move(value));
+}
+
+void JsonArray::insert(iterator iter, size_t n, const JsonValue & value)
+{
+    d_arr.insert(iter, n, value);
+}
+
+JsonValue & JsonArray::operator[](std::size_t idx)
+{
+    // TODO: insert return statement here
+    return d_arr[idx];
+}
+
+const JsonValue & JsonArray::operator[](std::size_t idx) const
+{
+    // TODO: insert return statement here
+    return d_arr[idx];
+}
+
+JsonValue & JsonArray::front()
+{
+    // TODO: insert return statement here
+    return d_arr.front();
+}
+
+JsonValue & JsonArray::back()
+{
+    // TODO: insert return statement here
+    return d_arr.back();
+}
+
+const JsonValue & JsonArray::front() const
+{
+    // TODO: insert return statement here
+    return d_arr.front();
+}
+
+const JsonValue & JsonArray::back() const
+{
+    // TODO: insert return statement here
+    return d_arr.back();
+}
+
+JsonValue * JsonArray::data()
+{
+    return d_arr.data();
+}
+
+const JsonValue * JsonArray::data() const
+{
+    return d_arr.data();
+}
+
+size_t JsonArray::size() const
+{
+    return d_arr.size();
 }
 
 void JsonArray::parseJsonArray(JsonIStream &charSeq, bool parseLeadingChar)
@@ -126,9 +256,5 @@ bool JsonArray::serializeToOStream(std::ostream * os, int tab_size) const
     return os->good();
 }
 
-std::ostream& operator << (std::ostream& os, const JSON_NAMESPACE::JsonArray& array)
-{
-    return os;
-}
-
 END_JSON_NAMESPACE
+
