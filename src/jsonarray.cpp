@@ -7,6 +7,40 @@
 
 BEGIN_JSON_NAMESPACE
 
+JsonArray::JsonArray()
+{}
+
+JsonArray::JsonArray(const JsonValue &other)
+    : std::vector<JsonValue>(other.toArray())
+{}
+
+JsonArray::JsonArray(JsonValue &&other)
+{
+    if (other.isArray()) {
+        this->swap(*other.mutable_array());
+    }
+}
+
+JsonArray::JsonArray(size_t n, const JsonValue &value)
+    : std::vector<JsonValue>(n, value)
+{
+}
+
+JsonArray &JsonArray::operator =(const JsonValue &value)
+{
+    *this = value.toArray();
+    return *this;
+}
+
+JsonArray &JsonArray::operator =(JsonValue &&value)
+{
+    this->clear();
+    if (value.isArray()) {
+        this->swap(*value.mutable_array());
+    }
+    return *this;
+}
+
 void JsonArray::parseJsonArray(JsonIStream &charSeq, bool parseLeadingChar)
 {
     int c = 0;
@@ -89,7 +123,7 @@ bool JsonArray::serializeToOStream(std::ostream * os, int tab_size) const
         *os << ' ';
     }
     *os << " ]";
-    return os->operator bool();
+    return os->good();
 }
 
 std::ostream& operator << (std::ostream& os, const JSON_NAMESPACE::JsonArray& array)

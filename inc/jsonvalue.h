@@ -94,6 +94,8 @@ private:
     };
 };
 
+JsonValue operator"" _json(const char* json, std::size_t);
+
 JsonValue &JsonValue::operator =(bool b)
 {
     this->clear();

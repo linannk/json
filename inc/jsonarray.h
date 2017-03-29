@@ -13,16 +13,15 @@ class JsonArray
 {
 public:
     JsonArray();
-    JsonArray(const JsonArray& other);
-    JsonArray(JsonArray &&other);
     JsonArray(const JsonValue& other);
     JsonArray(JsonValue&& other);
     JsonArray(size_t n, const JsonValue& value);
-    template<typename InputIterator>
-    JsonArray(InputIterator beg, InputIterator end);
 
-    JsonArray& operator = (const JsonArray& other);
-    JsonArray& operator = (JsonArray&& other);
+    template<typename InputIterator>
+    JsonArray(InputIterator beg, InputIterator end)
+        : std::vector<JsonValue>(beg, end)
+    {}
+
     JsonArray& operator = (const JsonValue& value);
     JsonArray& operator = (JsonValue&& value);
 

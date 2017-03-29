@@ -2,6 +2,7 @@
 #include "jsonarray.h"
 #include "jsonobject.h"
 #include "io/jsonistream.h"
+#include "io/jsonstringistream.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
@@ -370,7 +371,7 @@ bool JsonValue::serializeToOStream(std::ostream * os, int tab_size) const
     default:
         break;
     }
-    return os->operator bool();
+    return os->good();
 }
 
 void JsonValue::parseJsonValue(JsonIStream &charSeq)
@@ -654,6 +655,14 @@ JsonValue &JsonValue::operator =(const JsonObject &json_object)
     this->d_objectValue = new JsonObject(json_object);
     this->d_valueType = JSON_OBJECT;
     return *this;
+}
+
+JsonValue operator"" _json(const char *json, std::size_t size)
+{
+    JsonCStrWrapperIStream jcsis(json, size);
+    JsonValue json_value;
+    json_value.parseFromInputStream(jcsis);
+    return json_value;
 }
 
 END_JSON_NAMESPACE

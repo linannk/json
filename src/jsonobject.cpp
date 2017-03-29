@@ -217,7 +217,7 @@ bool JsonObject::serializeToOStream(std::ostream * os, int tab_size) const
         *os << ' ';
     }
     *os << '}';
-    return os->operator bool();
+    return os->good();
 }
 
 END_JSON_NAMESPACE
