@@ -656,12 +656,60 @@ FUNC_NUMBER_DOUBLE:
                 goto FUNC_STEP1;
             }
             break;
+        case '/': {
+            c = charSeq.getChar();
+            if (c == '/') {
+                //! Line comment
+                for (;;) {
+                    c = charSeq.getChar();
+                    if (c != -1) {
+                        const int char_count = charSeq.encode_char_count(c);
+                        for (int i = 1; i < char_count; ++i) {
+                            c = charSeq.getChar();
+                            if (c == -1) {
+                                throw std::runtime_error("Unexpected end of JsonInputStream");
+                            }
+                        }
+                        if (c == '\n' || c == '\r') {
+                            goto FUNC_COMMENT_JUMP;
+                        }
+                    }
+                    throw std::runtime_error("Unexpected end of JsonInputStream");
+                }
+            }
+            else if (c == '*') {
+                //! Block comment
+                for (;;) {
+                    c = charSeq.getChar();
+                    if (c == -1) {
+
+                    }
+                    if (c == '*') {
+                        c = charSeq.getChar();
+                        if (c =='/' ) {
+                            goto FUNC_COMMENT_JUMP;
+                        }
+                    }
+                }
+            }
+            else if (c == -1) {
+                throw std::runtime_error("Unexpected end of JsonInputStream");
+            }
+            else {
+                throw std::runtime_error("Unexpected '/'");
+            }
+            break;
+        }
         default:
             if (isspace(c)) {
                 continue;
             }
+            else {
+                throw std::runtime_error("Unexpected char encountered.");
+            }
             break;
         }
+FUNC_COMMENT_JUMP:
     }
 FUNC_STEP1:;
 }

@@ -25,12 +25,12 @@ public:
 
     JsonArray(JsonArray&& lhs);
 
-    JsonArray(container_type&& vec)
-        : d_arr(std::move(vec))
-    {}
-
     JsonArray(const container_type& vec)
         : d_arr(vec)
+    {}
+
+    JsonArray(container_type&& vec)
+        : d_arr(std::move(vec))
     {}
 
     JsonArray(const JsonValue& other);
