@@ -23,8 +23,21 @@ public:
     JsonValue();
     JsonValue(const JsonValue& other);
     JsonValue(JsonValue&& other);
+
+    JsonValue(bool value);
+    JsonValue(float value);
+    JsonValue(double value);
+    JsonValue(const std::string& str);
+    JsonValue(std::string&& str);
+
+    JsonValue(const JsonObject& obj);
+    JsonValue(JsonObject&& obj);
+    JsonValue(const JsonArray& arr);
+    JsonValue(JsonArray&& arr);
+
     ~JsonValue();
     void clear();
+    void swap(JsonValue &other);
 
     JsonValue& operator =(const JsonValue& other);
     JsonValue& operator =(JsonValue&& other);

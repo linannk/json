@@ -19,5 +19,8 @@ int main(int argc, char *argv[])
 
     std::cout << j["name"].toString() << std::endl;
 
+    json::JsonObject2 j2;
+    j2.emplace(std::string("123"), std::string("123"));
+
     return 0;
 }

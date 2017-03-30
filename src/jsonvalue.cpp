@@ -69,6 +69,60 @@ JsonValue::JsonValue(JsonValue &&other)
     other.d_valueType = JSON_NULL;
 }
 
+JsonValue::JsonValue(bool value)
+    : d_valueType(JSON_BOOLEAN)
+    , d_boolValue(value)
+{
+}
+
+JsonValue::JsonValue(float value)
+    : d_valueType(JSON_FLOAT)
+    , d_boolValue(value)
+{
+}
+
+JsonValue::JsonValue(double value)
+    : d_valueType(JSON_DOUBLE)
+    , d_boolValue(value)
+{
+}
+
+JsonValue::JsonValue(const std::string &str)
+    : d_valueType(JSON_STRING)
+    , d_stringValue(new std::string(str))
+{
+}
+
+JsonValue::JsonValue(std::string &&str)
+    : d_valueType(JSON_STRING)
+    , d_stringValue(new std::string(std::move(str)))
+{
+}
+
+JsonValue::JsonValue(const JsonObject &obj)
+    : d_valueType(JSON_OBJECT)
+    , d_objectValue(new JsonObject(obj))
+{
+}
+
+JsonValue::JsonValue(JsonObject &&obj)
+    : d_valueType(JSON_OBJECT)
+    , d_objectValue(new JsonObject(std::move(obj)))
+{
+}
+
+JsonValue::JsonValue(const JsonArray &arr)
+    : d_valueType(JSON_ARRAY)
+    , d_arrayValue(new JsonArray(arr))
+{
+}
+
+JsonValue::JsonValue(JsonArray &&arr)
+    : d_valueType(JSON_ARRAY)
+    , d_arrayValue(new JsonArray(std::move(arr)))
+{
+}
+
 JsonValue::~JsonValue()
 {
     this->clear();
@@ -79,31 +133,8 @@ JsonValue &JsonValue::operator =(const JsonValue &other)
     if (this == &other) {
         return *this;
     }
-
-    this->clear();
-    this->d_valueType = other.d_valueType;
-    switch (d_valueType) {
-    case JSON_OBJECT:
-        this->d_objectValue = new JsonObject(*other.d_objectValue);
-        break;
-    case JSON_ARRAY:
-        this->d_arrayValue = new JsonArray(*other.d_arrayValue);
-        break;
-    case JSON_STRING:
-        this->d_stringValue = new std::string(*other.d_stringValue);
-        break;
-    case JSON_BOOLEAN:
-        this->d_boolValue = other.d_boolValue;
-        break;
-    case JSON_FLOAT:
-        this->d_floatValue = other.d_floatValue;
-        break;
-    case JSON_DOUBLE:
-        this->d_doubleValue = other.d_doubleValue;
-        break;
-    default:
-        break;
-    }
+    JsonValue tmp(other);
+    swap(tmp);
     return *this;
 }
 
@@ -157,6 +188,16 @@ void JsonValue::clear()
         break;
     }
     d_valueType = JSON_NULL;
+}
+
+void JsonValue::swap(JsonValue &other)
+{
+    if (this == &other) {
+        return;
+    }
+    JsonValue tmp(std::move(other));
+    other = std::move(*this);
+    *this = std::move(tmp);
 }
 
 bool JsonValue::operator ==(const JsonValue &other) const
