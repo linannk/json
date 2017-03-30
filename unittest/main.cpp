@@ -19,8 +19,13 @@ int main(int argc, char *argv[])
 
     std::cout << j["name"].toString() << std::endl;
 
-    json::JsonObject2 j2;
-    j2.emplace(std::string("123"), std::string("123"));
+    //json::JsonObject2 j2;
+    //j2.emplace(std::string("123"), std::string("123"));
 
+    json::JsonUtf8FileIStream jufis("C:\\Users\\linan\\Desktop\\1.json");
+    json::JsonObject jj;
+    jj.parseFromInputStream(jufis);
+    jj.serializeToOStream(&std::cout, 0);
+    std::cout << std::endl;
     return 0;
 }

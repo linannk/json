@@ -90,11 +90,6 @@ public:
     void push_back(JsonValue&& value) { d_arr.emplace_back(std::move(value)); }
     void pop_back() { d_arr.pop_back(); }
 
-    template<typename ... Args>
-    void emplace_back(Args&& ...args) { d_arr.emplace_back(std::move(args...)); }
-    template<typename ... Args>
-    void emplace(const_iterator iter, Args&& ...args) { d_arr.emplace(iter, std::move(args...)); }
-
     void clear() { d_arr.clear(); }
     void swap(JsonArray& other) { d_arr.swap(other.d_arr); }
     void swap(std::vector<JsonValue>& other) { d_arr.swap(other); }

@@ -1,6 +1,7 @@
 #include "jsonarray.h"
 #include "jsonvalue.h"
 #include "io/jsonistream.h"
+#include "util/jsonutil.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
@@ -43,9 +44,10 @@ JsonArray::JsonArray(size_t n, const JsonValue &value)
 JsonArray & JsonArray::operator=(const JsonArray & other)
 {
     // TODO: insert return statement here
+    //! If other is a child of a parent.
     if (this != &other) {
-        JsonArray tmp(other);
-        swap(tmp);
+        container_type tmp(other.d_arr);
+        this->d_arr = std::move(tmp);
     }
     return *this;
 }
@@ -53,8 +55,8 @@ JsonArray & JsonArray::operator=(const JsonArray & other)
 JsonArray & JsonArray::operator=(JsonArray && other)
 {
     if (this != &other) {
-        JsonArray tmp(std::move(other));
-        swap(tmp);
+        container_type tmp(std::move(other.d_arr));
+        this->d_arr = std::move(tmp);
     }
     return *this;
     // TODO: insert return statement here
@@ -64,7 +66,7 @@ JsonArray &JsonArray::operator =(const JsonValue &value)
 {
     if (value.isArray()) {
         JsonArray tmp(value.const_array());
-        swap(tmp);
+        this->d_arr = std::move(tmp.d_arr);
     }
     return *this;
 }
@@ -72,8 +74,8 @@ JsonArray &JsonArray::operator =(const JsonValue &value)
 JsonArray &JsonArray::operator =(JsonValue &&value)
 {
     if (value.isArray()) {
-        JsonArray tmp(std::move(*value.mutable_array()));
-        swap(tmp);
+        container_type tmp(std::move(value.mutable_array()->d_arr));
+        this->d_arr = std::move(tmp);
     }
     return *this;
 }
@@ -92,6 +94,7 @@ void JsonArray::parseJsonArray(JsonIStream &charSeq, bool parseLeadingChar)
     if (parseLeadingChar)
     {
         //![0] FUNC_STEP0: EXPECT char is '['
+        //! If the first char is not what I want, report an error.
         for (;;)
         {
             c = charSeq.getChar();
@@ -100,6 +103,9 @@ void JsonArray::parseJsonArray(JsonIStream &charSeq, bool parseLeadingChar)
             }
             else if (isspace(c)) {
                 continue;
+            }
+            else if (c == '/') {
+                utilSkipComment(charSeq);
             }
             else if (c == -1) {
                 throw std::runtime_error("Unexpected end of JsonInputStream");
@@ -122,6 +128,12 @@ FUNC_STEP1:
             }
             else if (c == JSON_CLOSEBRACKET) {
                 goto FUNC_STEP2;
+            }
+            else if (c == '/') {
+                utilSkipComment(charSeq);
+            }
+            else if (isspace(c)) {
+                continue;
             }
             else if (c == -1) {
                 throw std::runtime_error("Unexpected end of JsonInputStream");

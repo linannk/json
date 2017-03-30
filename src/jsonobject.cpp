@@ -1,11 +1,108 @@
 #include "jsonobject.h"
 #include "jsonvalue.h"
 #include "io/jsonistream.h"
+#include "util/jsonutil.h"
 #include <ctype.h>
 #include <stdexcept>
 #include <iostream>
 
 BEGIN_JSON_NAMESPACE
+
+JsonObject::JsonObject()
+{
+}
+
+JsonObject::JsonObject(const JsonObject & other)
+    : d_map(other.d_map)
+{
+}
+
+JsonObject::JsonObject(JsonObject && other)
+    : d_map(std::move(other.d_map))
+{
+}
+
+JsonObject & JsonObject::operator=(const JsonObject & other)
+{
+    // TODO: insert return statement here
+    if (this != &other) {
+        d_map = other.d_map;
+    }
+    return *this;
+}
+
+JsonObject & JsonObject::operator=(JsonObject && other)
+{
+    // TODO: insert return statement here
+    if (this != &other) {
+        d_map = std::move(other.d_map);
+    }
+    return *this;
+}
+
+JsonObject::JsonObject(const JsonValue & value)
+{
+    if (value.isObject()) {
+        d_map = value.const_object().d_map;
+    }
+}
+
+JsonObject::JsonObject(JsonValue && value)
+{
+    if (value.isObject()) {
+        d_map = std::move(value.mutable_object()->d_map);
+    }
+}
+
+JsonObject & JsonObject::operator=(const JsonValue & value)
+{
+    // TODO: insert return statement here
+    if (value.isObject()) {
+        d_map = value.const_object().d_map;
+    }
+    return *this;
+}
+
+JsonObject & JsonObject::operator=(JsonValue && value)
+{
+    // TODO: insert return statement here
+    if (value.isObject()) {
+        d_map = std::move(value.mutable_object()->d_map);
+    }
+    return *this;
+}
+
+bool JsonObject::operator==(const JsonObject & other) const
+{
+    return d_map == other.d_map;
+}
+
+JsonObject::iterator JsonObject::insert(const std::string & key, const JsonValue & value)
+{
+    d_map.insert(std::make_pair(key, value));
+    return iterator();
+}
+
+JsonObject::iterator JsonObject::find(const std::string & key)
+{
+    return d_map.find(key);
+}
+
+JsonObject::const_iterator JsonObject::find(const std::string & key) const
+{
+    return d_map.find(key);
+}
+
+JsonValue & JsonObject::operator[](const std::string & key)
+{
+    // TODO: insert return statement here
+    return d_map[key];
+}
+
+bool JsonObject::hasKey(const std::string & key) const
+{
+    return end() != find(key);
+}
 
 void JsonObject::parseJsonObject(JsonIStream &charSeq, bool parseLeadingChar)
 {
@@ -20,6 +117,10 @@ void JsonObject::parseJsonObject(JsonIStream &charSeq, bool parseLeadingChar)
                 goto FUNC_STEP1;
             }
             else if (isspace(c)) {
+                continue;
+            }
+            else if (c == '/') {
+                utilSkipComment(charSeq);
                 continue;
             }
             else if (c == -1) {
@@ -44,6 +145,10 @@ FUNC_STEP1:
         else if (isspace(c)) {
             continue;
         }
+        else if (c == '/') {
+            utilSkipComment(charSeq);
+            continue;
+        }
         else if (c == -1) {
             throw std::runtime_error("Unexpected end of JsonInputStream");
         }
@@ -54,81 +159,19 @@ FUNC_STEP1:
 
 FUNC_STEP2:
     {
-        std::string key;
-        for (;;)
-        {
-            c = charSeq.getChar();
-            if (c == '\\')
-            {
-                c = charSeq.getChar();
-                if (c == -1) {
-                    throw std::runtime_error("Unexpected end of JsonInputStream");
-                }
-                switch(c) {
-                case '\"':
-                    key.push_back('\"');
-                    break;
-                case '\\':
-                    key.push_back('\\');
-                    break;
-                case '/':
-                    //! \/ ??
-                    key.push_back('/');
-                    break;
-                case 'b':
-                    key.push_back('\b');
-                    break;
-                case 'f':
-                    key.push_back('\f');
-                    break;
-                case 'n':
-                    key.push_back('\n');
-                    break;
-                case 'r':
-                    key.push_back('\r');
-                    break;
-                case 't':
-                    key.push_back('\t');
-                    break;
-                case 'u':
-                    std::cerr << "\\u IS NOT IMPLEMENTED YET" << std::endl;
-                    key.push_back('\\');
-                    key.push_back('u');
-                    break;
-                default:
-                    //! Todo: add more details about the error.
-                    throw std::runtime_error("Unexpected char encountered: " + charSeq.json_invalid_chars(c));
-                    break;
-                }
-            }
-            else if (c == '\"') {
-                goto FUNC_STEP3;
-            }
-            else if (c == -1) {
-                throw std::runtime_error("Unexpected end of JsonInputStream");
-            }
-            else {
-                key.push_back(c);
-                const int char_count = charSeq.encode_char_count(c);
-                for (int i = 1; i < char_count; ++i) {
-                    if ((c = charSeq.getChar()) != -1) {
-                        key.push_back(c);
-                    }
-                    else {
-                        //! Todo: add more information about the error.
-                        throw std::runtime_error("Unexpected end of JsonInputStream");
-                    }
-                }
-            }
-        }
+        std::string key = utilGetString(charSeq);
 
-FUNC_STEP3:
+//! FUNC_STEP3:
         for (;;) {
             c = charSeq.getChar();
             if (c == ':') {
                 goto FUNC_STEP4;
             }
             else if (isspace(c)) {
+                continue;
+            }
+            else if (c == '/') {
+                utilSkipComment(charSeq);
                 continue;
             }
             else if (c == -1) {
@@ -142,7 +185,7 @@ FUNC_STEP3:
 FUNC_STEP4:
         JsonValue value;
         value.parseJsonValue(charSeq);
-        this->emplace(std::move(key), std::move(value));
+        this->insert(std::move(key), std::move(value));
     }
 
     //! [5] FUNC_STEP5: EXPECT chars are ',' and '}'
@@ -155,6 +198,10 @@ FUNC_STEP4:
             goto FUNC_STEP6;
         }
         else if (isspace(c)) {
+            continue;
+        }
+        else if (c == '/') {
+            utilSkipComment(charSeq);
             continue;
         }
         else if (c == -1) {

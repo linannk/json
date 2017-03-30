@@ -37,6 +37,7 @@ public:
 
     ~JsonValue();
     void clear();
+
     void swap(JsonValue &other);
 
     JsonValue& operator =(const JsonValue& other);

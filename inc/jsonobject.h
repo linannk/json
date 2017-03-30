@@ -3,24 +3,31 @@
 #include "jsondef.h"
 #include <map>
 #include <string>
+#include <initializer_list>
 #include <ostream>
 
 BEGIN_JSON_NAMESPACE
 class JsonValue;
 class JsonIStream;
 
-class JsonObject
-    : public std::map<std::string, JsonValue>
-{
-public:
-    void parseJsonObject(JsonIStream& charSeq, bool parseLeadingChar = true);
-    bool parseFromInputStream(JsonIStream& charSeq);
-    bool serializeToOStream(std::ostream* os, int tab_size) const;
-};
-
-class JsonObject2 {
+class JsonObject {
 public:
     typedef std::map<std::string, JsonValue> container_type;
+
+    JsonObject();
+    JsonObject(const JsonObject& other);
+    JsonObject(JsonObject &&other);
+
+    JsonObject& operator = (const JsonObject& other);
+    JsonObject& operator = (JsonObject&& other);
+
+    JsonObject(const JsonValue& value);
+    JsonObject(JsonValue&& vlaue);
+
+    JsonObject& operator = (const JsonValue& value);
+    JsonObject& operator = (JsonValue&& value);
+
+    bool operator == (const JsonObject& other) const;
 public:
     typedef container_type::iterator iterator;
     typedef container_type::reverse_iterator reverse_iterator;
@@ -42,9 +49,19 @@ public:
     const_iterator cbegin() const { return d_map.cbegin(); }
     const_iterator cend() const { return d_map.cend(); }
 
-    void emplace(const std::string& key, const JsonValue& value) {
-        d_map.emplace(key, value);
-    }
+    iterator insert(const std::string& key, const JsonValue& value);
+
+    iterator find(const std::string& key);
+    const_iterator find(const std::string& key) const;
+
+public:
+    JsonValue& operator[](const std::string& key);
+    bool hasKey(const std::string& key) const;
+
+public:
+    void parseJsonObject(JsonIStream& charSeq, bool parseLeadingChar = true);
+    bool parseFromInputStream(JsonIStream& charSeq);
+    bool serializeToOStream(std::ostream* os, int tab_size) const;
 
 private:
     container_type d_map;
