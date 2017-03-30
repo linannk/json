@@ -657,12 +657,13 @@ JsonValue &JsonValue::operator =(const JsonObject &json_object)
     return *this;
 }
 
-JsonValue operator"" _json(const char *json, std::size_t size)
+END_JSON_NAMESPACE
+
+JSON_NAMESPACE::JsonValue operator"" _json(const char *json, std::size_t size)
 {
-    JsonCStrWrapperIStream jcsis(json, size);
-    JsonValue json_value;
+    JSON_NAMESPACE::JsonCStrWrapperIStream jcsis(json, size);
+    JSON_NAMESPACE::JsonValue json_value;
     json_value.parseFromInputStream(jcsis);
     return json_value;
 }
 
-END_JSON_NAMESPACE

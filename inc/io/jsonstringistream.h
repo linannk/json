@@ -34,6 +34,7 @@ class JsonStringWrapperIStream : public JsonIStream {
 public:
     explicit JsonStringWrapperIStream(const std::string& str)
         : d_str(str)
+        , d_idx(0)
     { }
 
     int getChar() {
@@ -46,7 +47,7 @@ public:
     }
 private:
     const std::string& d_str;
-    std::size_t d_idx = 0;
+    std::size_t d_idx;
 };
 
 class JsonCStrWrapperIStream : public JsonIStream {
@@ -58,7 +59,7 @@ public:
     {}
 
     int getChar() {
-        return d_idx < d_size ? d_str[d_idx] : -1;
+        return d_idx < d_size ? d_str[d_idx++] : -1;
     }
 
     int ungetChar() {

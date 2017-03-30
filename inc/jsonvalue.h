@@ -94,8 +94,6 @@ private:
     };
 };
 
-JsonValue operator"" _json(const char* json, std::size_t);
-
 JsonValue &JsonValue::operator =(bool b)
 {
     this->clear();
@@ -202,4 +200,7 @@ JsonObject *JsonValue::mutable_object()
 }
 
 END_JSON_NAMESPACE
+
+JSON_NAMESPACE::JsonValue operator"" _json(const char* json, std::size_t);
+
 #endif // JSONVALUE_H

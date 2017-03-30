@@ -33,7 +33,6 @@ JsonArray::JsonArray(JsonValue &&other)
     if (other.isArray()) {
         d_arr.swap(other.mutable_array()->d_arr);
     }
-    other.clear();
 }
 
 JsonArray::JsonArray(size_t n, const JsonValue &value)
@@ -76,7 +75,6 @@ JsonArray &JsonArray::operator =(JsonValue &&value)
         JsonArray tmp(std::move(*value.mutable_array()));
         swap(tmp);
     }
-    value.clear();
     return *this;
 }
 
@@ -86,89 +84,6 @@ bool JsonArray::operator==(const JsonArray & other) const
         return true;
     }
     return d_arr == other.d_arr;
-}
-
-void JsonArray::push_back(const JsonValue & value)
-{
-    this->d_arr.push_back(value);
-}
-
-void JsonArray::push_back(JsonValue && value)
-{
-    this->d_arr.emplace_back(std::move(value));
-}
-
-void JsonArray::swap(JsonArray & other)
-{
-    if (this != &other) {
-        this->d_arr.swap(other.d_arr);
-    }
-}
-
-void JsonArray::insert(iterator iter, const JsonValue & value)
-{
-    d_arr.insert(iter, value);
-}
-
-void JsonArray::insert(iterator iter, JsonValue && value)
-{
-    d_arr.emplace(iter, std::move(value));
-}
-
-void JsonArray::insert(iterator iter, size_t n, const JsonValue & value)
-{
-    d_arr.insert(iter, n, value);
-}
-
-JsonValue & JsonArray::operator[](std::size_t idx)
-{
-    // TODO: insert return statement here
-    return d_arr[idx];
-}
-
-const JsonValue & JsonArray::operator[](std::size_t idx) const
-{
-    // TODO: insert return statement here
-    return d_arr[idx];
-}
-
-JsonValue & JsonArray::front()
-{
-    // TODO: insert return statement here
-    return d_arr.front();
-}
-
-JsonValue & JsonArray::back()
-{
-    // TODO: insert return statement here
-    return d_arr.back();
-}
-
-const JsonValue & JsonArray::front() const
-{
-    // TODO: insert return statement here
-    return d_arr.front();
-}
-
-const JsonValue & JsonArray::back() const
-{
-    // TODO: insert return statement here
-    return d_arr.back();
-}
-
-JsonValue * JsonArray::data()
-{
-    return d_arr.data();
-}
-
-const JsonValue * JsonArray::data() const
-{
-    return d_arr.data();
-}
-
-size_t JsonArray::size() const
-{
-    return d_arr.size();
 }
 
 void JsonArray::parseJsonArray(JsonIStream &charSeq, bool parseLeadingChar)

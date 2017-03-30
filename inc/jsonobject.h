@@ -15,7 +15,6 @@ class JsonObject
 public:
     void parseJsonObject(JsonIStream& charSeq, bool parseLeadingChar = true);
     bool parseFromInputStream(JsonIStream& charSeq);
-
     bool serializeToOStream(std::ostream* os, int tab_size) const;
 };
 

@@ -11,9 +11,24 @@ class JsonIStream;
 class JsonArray
 {
 public:
-    JsonArray();
+    /*!
+     * \brief JsonArray Construct an empty JsonArray object.
+     */ JsonArray();
+
+    /*!
+     * \brief JsonArray Construct an JsonArray object and copy elements from the given JsonArray object.
+     */
     JsonArray(const JsonArray& other);
+
     JsonArray(JsonArray&& lhs);
+
+    JsonArray(std::vector<JsonValue>&& vec)
+        : d_arr(std::move(vec))
+    {}
+
+    JsonArray(const std::vector<JsonValue>& vec)
+        : d_arr(vec)
+    {}
 
     JsonArray(const JsonValue& other);
     JsonArray(JsonValue &&other);
@@ -53,29 +68,45 @@ public:
     const_iterator cend() const { return d_arr.cend(); }
 
 public:
-    JsonValue& operator[](std::size_t idx);
-    const JsonValue& operator[](std::size_t idx) const;
+    JsonValue& operator[](std::size_t idx) { return d_arr[idx]; }
+    const JsonValue& operator[](std::size_t idx) const { return d_arr[idx]; }
 
-    JsonValue& front();
-    JsonValue& back();
+    JsonValue& front() { return d_arr.front(); }
+    JsonValue& back() { return d_arr.back(); }
 
-    const JsonValue& front() const;
-    const JsonValue& back() const;
+    const JsonValue& front() const { return d_arr.front(); }
+    const JsonValue& back() const { return d_arr.back(); }
 
-    JsonValue* data();
-    const JsonValue* data() const;
+    JsonValue* data() { return d_arr.data(); }
+    const JsonValue* data() const { return d_arr.data(); }
 
-    size_t size() const;
+    size_t size() const { return d_arr.size(); }
+    bool   empty() const { return d_arr.empty(); }
 public:
-    void push_back(const JsonValue& value);
-    void push_back(JsonValue&& value);
+    void push_back(const JsonValue& value) { d_arr.push_back(value); }
+    void push_back(JsonValue&& value) { d_arr.emplace_back(std::move(value)); }
+    void pop_back() { d_arr.pop_back(); }
+
+    template<typename ... Args>
+    void emplace_back(Args&& ...args) { d_arr.emplace_back(std::move(args...)); }
+    template<typename ... Args>
+    void emplace(const_iterator iter, Args&& ...args) { d_arr.emplace(iter, std::move(args...)); }
+
     void clear() { d_arr.clear(); }
-    void swap(JsonArray& other);
-    void insert(iterator iter, const JsonValue& value);
-    void insert(iterator iter, JsonValue&& value);
-    void insert(iterator iter, size_t n, const JsonValue& value);
+    void swap(JsonArray& other) { d_arr.swap(other.d_arr); }
+    void swap(std::vector<JsonValue>& other) { d_arr.swap(other); }
+
+    iterator insert(iterator iter, const JsonValue& value) { return d_arr.insert(iter, value); }
+    iterator insert(iterator iter, JsonValue&& value) { return d_arr.insert(iter, std::move(value)); }
+    void insert(iterator iter, size_t n, const JsonValue& value) { d_arr.insert(iter, n, value); }
+    void insert(iterator iter, std::initializer_list<JsonValue> list) { d_arr.insert(iter, list); }
+
     template<typename InputIterator>
-    void insert(iterator iter, InputIterator beg, InputIterator end);
+    void insert(iterator iter, InputIterator beg, InputIterator end)
+    {
+        d_arr.insert(iter, beg, end);
+    }
+
 public:
     void parseJsonArray(JsonIStream& charSeq, bool parseLeadingChar = true);
     bool parseFromInputStream(JsonIStream& charSeq);
@@ -90,11 +121,11 @@ inline JsonArray::JsonArray(InputIterator beg, InputIterator end)
 {
 }
 
-template<typename InputIterator>
-inline void JsonArray::insert(iterator iter, InputIterator beg, InputIterator end)
-{
-    d_arr.insert(iter, beg, end);
-}
+//template<typename InputIterator>
+//inline JsonArray::iterator JsonArray::insert(JsonArray::iterator iter, InputIterator beg, InputIterator end)
+//{
+//    return d_arr.insert(iter, beg, end);
+//}
 
 END_JSON_NAMESPACE
 

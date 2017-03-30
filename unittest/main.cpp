@@ -7,31 +7,17 @@
 #include <iostream>
 #include <chrono>
 
-json::JsonValue operator"" _json(const char* str, std::size_t i)
-{
-    std::cout << str << std::endl;
-    return json::JsonValue();
-}
+#define BEGIN_CHRONO { auto beg_chrono_time = std::chrono::high_resolution_clock::now();
+
+#define END_CHRONO \
+    auto end_chrono_time = std::chrono::high_resolution_clock::now(); \
+    std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end_chrono_time - beg_chrono_time).count() << std::endl; }
 
 int main(int argc, char *argv[])
 {
-    auto j = R"({"name": "linan"})"_json;
+    auto j = "{\"name\":\"linannk\"}"_json;
 
-    json::JsonObject json_object;
-    const char* platform = "linux_x86";
-    const char* workdir = ".";
-    const char* json_file = "C:\\Users\\linan\\Desktop\\1.json";
+    std::cout << j["name"].toString() << std::endl;
 
-    json::JsonUtf8FileIStream json_file_seq(json_file);
-
-    auto beg = std::chrono::high_resolution_clock::now();
-    json_object.parseFromInputStream(json_file_seq);
-    auto end = std::chrono::high_resolution_clock::now();
-
-    std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end - beg).count() << std::endl;
-
-    json_object.serializeToOStream(&std::cout, 0);
-
-    std::cout << std::endl;
     return 0;
 }
