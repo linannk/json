@@ -11,6 +11,9 @@ class JsonIStream;
 class JsonArray
 {
 public:
+
+    typedef std::vector<JsonValue> container_type;
+
     /*!
      * \brief JsonArray Construct an empty JsonArray object.
      */ JsonArray();
@@ -22,11 +25,11 @@ public:
 
     JsonArray(JsonArray&& lhs);
 
-    JsonArray(std::vector<JsonValue>&& vec)
+    JsonArray(container_type&& vec)
         : d_arr(std::move(vec))
     {}
 
-    JsonArray(const std::vector<JsonValue>& vec)
+    JsonArray(const container_type& vec)
         : d_arr(vec)
     {}
 
@@ -47,10 +50,10 @@ public:
     bool operator == (const JsonArray& other) const;
 
 public:
-    typedef std::vector<JsonValue>::iterator iterator;
-    typedef std::vector<JsonValue>::reverse_iterator reverse_iterator;
-    typedef std::vector<JsonValue>::const_iterator const_iterator;
-    typedef std::vector<JsonValue>::const_reverse_iterator const_reverse_iterator;
+    typedef container_type::iterator iterator;
+    typedef container_type::reverse_iterator reverse_iterator;
+    typedef container_type::const_iterator const_iterator;
+    typedef container_type::const_reverse_iterator const_reverse_iterator;
 
     iterator begin() { return d_arr.begin(); }
     iterator end() { return d_arr.end(); }
@@ -112,7 +115,7 @@ public:
     bool parseFromInputStream(JsonIStream& charSeq);
     bool serializeToOStream(std::ostream* os, int tab_size) const;
 private:
-    std::vector<JsonValue> d_arr;
+    container_type d_arr;
 };
 
 template<typename InputIterator>
