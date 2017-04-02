@@ -15,17 +15,27 @@
 
 int main(int argc, char *argv[])
 {
-    auto j = "{\"name\":\"linannk\"}"_json;
+    json::JsonObject j = R"({"name":"linane","age":123})"_json;
+    j.serializeToOStream(&std::cout, 0);
+    std::cout << std::endl;
 
-    std::cout << j["name"].toString() << std::endl;
+    json::JsonArray json_array = R"(["linan", "lihong", "jhon"])"_json;
+    json_array.serializeToOStream(&std::cout, 0);
+    std::cout << std::endl;
 
-    //json::JsonObject2 j2;
-    //j2.emplace(std::string("123"), std::string("123"));
+    json::JsonValue json_value = R"("linannk")"_json;
+    std::cout << json_value.serializeToOStream(&std::cout, 0);
+    std::cout << std::endl;
 
-    json::JsonUtf8FileIStream jufis("C:\\Users\\linan\\Desktop\\1.json");
-    json::JsonObject jj;
-    jj.parseFromInputStream(jufis);
-    jj.serializeToOStream(&std::cout, 0);
+    json_value["name"] = "linan";
+    json_value["age"] = 13.0;
+
+    json_value.serializeToOStream(&std::cout, 0);
+
+    json::JsonObject h = std::move(json_value);
+    json_value.serializeToOStream(&std::cout, 0);
+    std::cout << std::endl;
+    h.serializeToOStream(&std::cout, 0);
     std::cout << std::endl;
     return 0;
 }

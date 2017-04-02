@@ -54,10 +54,15 @@ public:
     iterator find(const std::string& key);
     const_iterator find(const std::string& key) const;
 
+#ifdef JSON_DEBUG
+    bool contains_recurse(const JsonValue* value) const;
+    bool contains_recurse(const JsonObject* value) const;
+#endif // JSON_DEBUG
+
 public:
     JsonValue& operator[](const std::string& key);
     bool hasKey(const std::string& key) const;
-
+    bool contains(const std::string& key) const;
 public:
     void parseJsonObject(JsonIStream& charSeq, bool parseLeadingChar = true);
     bool parseFromInputStream(JsonIStream& charSeq);

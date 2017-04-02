@@ -19,4 +19,9 @@
 #define JSON_SCIENTIFIC_E_LOWER 'e'
 #define JSON_FLOAT_F_UPPER 'F'
 #define JSON_FLOAT_F_LOWER 'f'
+
+#if defined(_DEBUG) || defined(DEBUG)
+#define JSON_DEBUG
+#endif
+
 #endif // JSONDEF_H

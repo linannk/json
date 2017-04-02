@@ -33,6 +33,15 @@ JsonObject & JsonObject::operator=(const JsonObject & other)
 
 JsonObject & JsonObject::operator=(JsonObject && other)
 {
+#ifdef JSON_DEBUG
+    if (this->contains_recurse(&other)) {
+        return *this;
+    }
+    else if (other.contains_recurse(this)) {
+        return *this;
+    }
+#endif // JSON_DEBUG
+
     // TODO: insert return statement here
     if (this != &other) {
         d_map = std::move(other.d_map);
@@ -51,6 +60,7 @@ JsonObject::JsonObject(JsonValue && value)
 {
     if (value.isObject()) {
         d_map = std::move(value.mutable_object()->d_map);
+        value.clear();
     }
 }
 
@@ -65,9 +75,18 @@ JsonObject & JsonObject::operator=(const JsonValue & value)
 
 JsonObject & JsonObject::operator=(JsonValue && value)
 {
+#ifdef JSON_DEBUG
+    if (this->contains_recurse(&value)) {
+        return *this;
+    }
+    else if (value.contains_recurse(this)) {
+        return *this;
+    }
+#endif // JSON_DEBUG
     // TODO: insert return statement here
     if (value.isObject()) {
         d_map = std::move(value.mutable_object()->d_map);
+        value.clear();
     }
     return *this;
 }
@@ -93,6 +112,34 @@ JsonObject::const_iterator JsonObject::find(const std::string & key) const
     return d_map.find(key);
 }
 
+#ifdef JSON_DEBUG
+bool JsonObject::contains_recurse(const JsonValue * value) const
+{
+    for (auto i = d_map.begin(); i != d_map.end(); ++i) {
+        if (&i->second == value) {
+            return true;
+        }
+        else if (i->second.contains_recurse(value)) {
+            return true;
+        }
+    }
+    return false;
+}
+bool JsonObject::contains_recurse(const JsonObject * value) const
+{
+    if (this == value) {
+        return true;
+    }
+    for (auto i = d_map.begin(); i != d_map.end(); ++i) {
+        if (i->second.contains_recurse(value)) {
+            return true;
+        }
+    }
+    return false;
+}
+#endif // JSON_DEBUG
+
+
 JsonValue & JsonObject::operator[](const std::string & key)
 {
     // TODO: insert return statement here
@@ -102,6 +149,11 @@ JsonValue & JsonObject::operator[](const std::string & key)
 bool JsonObject::hasKey(const std::string & key) const
 {
     return end() != find(key);
+}
+
+bool JsonObject::contains(const std::string & key) const
+{
+    return d_map.find(key) != d_map.end();
 }
 
 void JsonObject::parseJsonObject(JsonIStream &charSeq, bool parseLeadingChar)

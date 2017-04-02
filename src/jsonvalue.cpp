@@ -164,6 +164,15 @@ JsonValue &JsonValue::operator =(const JsonValue &other)
 
 JsonValue &JsonValue::operator =(JsonValue &&other)
 {
+#ifdef JSON_DEBUG
+    if (this->contains_recurse(&other)) {
+
+    }
+    else if (other.contains_recurse(this)) {
+
+    }
+#endif // JSON_DEBUG
+
     if (this == &other) {
         return *this;
     }
@@ -281,6 +290,7 @@ JsonValue & JsonValue::operator[](const std::string & key)
     if (!isObject()) {
         this->clear();
         this->d_objectValue = new JsonObject();
+        this->d_valueType = JSON_OBJECT;
     }
     return d_objectValue->operator[](key);
 }
@@ -327,9 +337,63 @@ void JsonValue::insert(const std::string & key, JsonValue && value)
     this->d_objectValue->insert(key, std::move(value));
 }
 
-bool JsonValue::toBoolean() const
+bool JsonValue::toBool(bool def) const
 {
     if (d_valueType == JSON_BOOLEAN) {
+        return d_boolValue;
+    }
+    return def;
+}
+
+float JsonValue::toFloat(float def) const
+{
+    if (d_valueType == JSON_FLOAT) {
+        return d_floatValue;
+    }
+    else if (d_valueType == JSON_DOUBLE) {
+        return static_cast<float>(d_doubleValue);
+    }
+    return def;
+}
+
+double JsonValue::toDouble(double def) const
+{
+    if (d_valueType == JSON_DOUBLE) {
+        return d_doubleValue;
+    }
+    else if (d_valueType == JSON_FLOAT) {
+        return static_cast<double>(d_floatValue);
+    }
+    return def;
+}
+
+std::string JsonValue::toString(const std::string& def) const
+{
+    if (d_valueType == JSON_STRING) {
+        return *d_stringValue;
+    }
+    return def;
+}
+
+JsonArray JsonValue::toArray(const JsonArray& def) const
+{
+    if (d_valueType == JSON_ARRAY) {
+        return *d_arrayValue;
+    }
+    return def;
+}
+
+JsonObject JsonValue::toObject(const JsonObject& def) const
+{
+    if (d_valueType == JSON_OBJECT) {
+        return *d_objectValue;
+    }
+    return def;
+}
+
+bool JsonValue::toBool() const
+{
+    if (this->d_valueType == JSON_BOOLEAN) {
         return d_boolValue;
     }
     return false;
@@ -352,13 +416,14 @@ double JsonValue::toDouble() const
         return d_doubleValue;
     }
     else if (d_valueType == JSON_FLOAT) {
-        return static_cast<double>(d_floatValue);
+        return d_floatValue;
     }
     return 0.0;
 }
 
 std::string JsonValue::toString() const
 {
+    // TODO: insert return statement here
     if (d_valueType == JSON_STRING) {
         return *d_stringValue;
     }
@@ -379,6 +444,64 @@ JsonObject JsonValue::toObject() const
         return *d_objectValue;
     }
     return JsonObject();
+}
+
+std::string JsonValue::moveToString()
+{
+    if (d_valueType == JSON_STRING) {
+        std::string ret(std::move(*d_stringValue));
+        this->clear();
+        return std::move(ret);
+    }
+    return std::string();
+}
+
+JsonArray JsonValue::moveToArray()
+{
+    if (d_valueType == JSON_ARRAY) {
+        JsonArray ret(std::move(*d_arrayValue));
+        return std::move(ret);
+    }
+    return JsonArray();
+}
+
+JsonObject JsonValue::moveToObject()
+{
+    if (d_valueType == JSON_OBJECT) {
+        JsonObject ret(std::move(*d_objectValue));
+        this->clear();
+        return std::move(ret);
+    }
+    return JsonObject();
+}
+
+std::string JsonValue::moveToString(const std::string & def)
+{
+    if (d_valueType == JSON_STRING) {
+        std::string ret(std::move(*d_stringValue));
+        this->clear();
+        return std::move(ret);
+    }
+    return def;
+}
+
+JsonArray JsonValue::moveToArray(const JsonArray & def)
+{
+    if (d_valueType == JSON_ARRAY) {
+        JsonArray ret(std::move(*d_arrayValue));
+        return std::move(ret);
+    }
+    return def;
+}
+
+JsonObject JsonValue::moveToObject(const JsonObject & def)
+{
+    if (d_valueType == JSON_OBJECT) {
+        JsonObject ret(std::move(*d_objectValue));
+        this->clear();
+        return std::move(ret);
+    }
+    return def;
 }
 
 bool JsonValue::parseFromInputStream(JsonIStream &charSeq)
@@ -439,6 +562,54 @@ bool JsonValue::serializeToOStream(std::ostream * os, int tab_size) const
     }
     return os->good();
 }
+
+#ifdef JSON_DEBUG
+bool JsonValue::contains_recurse(const JsonValue * value) const
+{
+    if (isArray()) {
+        return d_arrayValue->contains_recurse(value);
+    }
+    else if (isObject()) {
+        return d_objectValue->contains_recurse(value);
+    }
+    return false;
+}
+bool JsonValue::contains_recurse(const JsonArray * arr) const
+{
+    if (isArray()) {
+        if (this->d_arrayValue == arr) {
+            return true;
+        }
+        for (auto i = d_arrayValue->begin(); i != d_arrayValue->end(); ++i) {
+            if (i->contains_recurse(arr)) {
+                return true;
+            }
+        }
+    }
+    else if (isObject()) {
+        for (auto i = d_objectValue->begin(); i != d_objectValue->end(); ++i) {
+            if (i->second.contains_recurse(arr)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+bool JsonValue::contains_recurse(const JsonObject * obj) const
+{
+    if (isObject()) {
+        if (this->d_objectValue == obj) {
+            return true;
+        }
+        for (auto i = d_objectValue->begin(); i != d_objectValue->end(); ++i) {
+            if (i->second.contains_recurse(obj)) {
+                return true;
+            }
+        }
+    }
+    return false;
+}
+#endif // JSON_DEBUG
 
 void JsonValue::parseJsonValue(JsonIStream &charSeq)
 {
@@ -642,6 +813,15 @@ JsonValue &JsonValue::operator =(JsonArray &&json_array)
 
 JsonValue &JsonValue::operator =(JsonObject &&json_object)
 {
+#ifdef JSON_DEBUG
+    if (this->contains_recurse(&json_object)) {
+
+    }
+    else if (json_object.contains_recurse(this)) {
+
+    }
+#endif // JSON_DEBUG
+
     this->clear();
     this->d_objectValue = new JsonObject(std::move(json_object));
     this->d_valueType = JSON_OBJECT;

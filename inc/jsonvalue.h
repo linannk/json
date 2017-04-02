@@ -78,12 +78,27 @@ public:
     inline bool isArray() const;
     inline bool isObject() const;
 
-    bool toBoolean() const;
+    bool toBool(bool def) const;
+    float toFloat(float def) const;
+    double toDouble(double def) const;
+    std::string toString(const std::string& def) const;
+    JsonArray toArray(const JsonArray& def) const;
+    JsonObject toObject(const JsonObject& def) const;
+
+    bool toBool() const;
     float toFloat() const;
     double toDouble() const;
     std::string toString() const;
     JsonArray toArray() const;
     JsonObject toObject() const;
+
+    std::string moveToString();
+    JsonArray moveToArray();
+    JsonObject moveToObject();
+
+    std::string moveToString(const std::string& def);
+    JsonArray moveToArray(const JsonArray& def);
+    JsonObject moveToObject(const JsonObject& def);
 
     inline const std::string& const_string() const;
     inline const JsonArray& const_array() const;
@@ -96,6 +111,12 @@ public:
     void parseJsonValue(JsonIStream& charSeq);
     bool parseFromInputStream(JsonIStream &charSeq);
     bool serializeToOStream(std::ostream* os, int tab_size) const;
+
+#ifdef JSON_DEBUG
+    bool contains_recurse(const JsonValue* value) const;
+    bool contains_recurse(const JsonArray *arr) const;
+    bool contains_recurse(const JsonObject *obj) const;
+#endif // JSON_DEBUG
 private:
     JsonValueType d_valueType;
     union {
