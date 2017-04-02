@@ -168,6 +168,24 @@ void JsonArray::pop_back()
     d_arr.pop_back();
 }
 
+JsonArray::iterator JsonArray::insert(JsonArray::iterator iter, const JsonValue & value)
+{
+    return d_arr.insert(iter, value);
+}
+
+JsonArray::iterator JsonArray::insert(JsonArray::iterator iter, JsonValue && value)
+{
+#ifdef JSON_DEBUG
+    if (this->contains_recurse(&value)) {
+        return end();
+    }
+    else if (value.contains_recurse(this)) {
+        return end();
+    }
+#endif // JSON_DEBUG
+    return d_arr.insert(iter, value);
+}
+
 #ifdef JSON_DEBUG
 bool JsonArray::contains_recurse(const JsonValue* value) const
 {

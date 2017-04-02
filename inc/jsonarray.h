@@ -65,6 +65,9 @@ public:
     void push_back(JsonValue&& value);
     void pop_back();
 
+    iterator insert(iterator iter, const JsonValue& value);
+    iterator insert(iterator iter, JsonValue&& value);
+
 #ifdef JSON_DEBUG
     bool contains_recurse(const JsonValue* value) const;
     bool contains_recurse(const JsonArray* arr) const;
