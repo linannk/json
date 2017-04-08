@@ -1,7 +1,7 @@
 #ifndef JSONUTF8FILECHARSEQ_H
 #define JSONUTF8FILECHARSEQ_H
 #include "jsonistream.h"
-#include "utf8_ctb.h"
+#include "charset/utf8_ctb.h"
 #include <stdio.h>
 
 BEGIN_JSON_NAMESPACE
@@ -13,6 +13,8 @@ public:
     {
         //! Test BOM
         //! If the file has bom header, so it will be ignored.
+        //! Utf8 file BOM header 
+        //! 0xEF, 0xBB, 0xBF
         if (d_fp) {
             int c0 = fgetc(d_fp);
             if (c0 != 0xEF) {

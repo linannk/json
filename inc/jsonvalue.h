@@ -23,14 +23,40 @@ public:
     JsonValue();
     JsonValue(const JsonValue& other);
     JsonValue(JsonValue&& other);
+
+    JsonValue(bool value);
+    JsonValue(float value);
+    JsonValue(double value);
+    JsonValue(const std::string& str);
+    JsonValue(std::string&& str);
+
+    JsonValue(const JsonObject& obj);
+    JsonValue(JsonObject&& obj);
+    JsonValue(const JsonArray& arr);
+    JsonValue(JsonArray&& arr);
+
     ~JsonValue();
     void clear();
+
+    void swap(JsonValue &other);
 
     JsonValue& operator =(const JsonValue& other);
     JsonValue& operator =(JsonValue&& other);
 
     bool operator ==(const JsonValue& other) const;
     bool operator !=(const JsonValue& other) const;
+
+    //! Call this function will make JsonValue to JsonObject
+    JsonValue& operator[](const std::string &key);
+
+    //! If isArray() returns false, call this function maybe cause undefined behavior.
+    JsonValue& operator[](std::size_t idx);
+
+    void push_back(const JsonValue& other);
+    void push_back(JsonValue&& other);
+
+    void insert(const std::string& key, const JsonValue& value);
+    void insert(const std::string& key, JsonValue&& value);
 
     inline JsonValue& operator =(bool b);
     inline JsonValue& operator =(float f);
@@ -52,12 +78,27 @@ public:
     inline bool isArray() const;
     inline bool isObject() const;
 
-    bool toBoolean() const;
+    bool toBool(bool def) const;
+    float toFloat(float def) const;
+    double toDouble(double def) const;
+    std::string toString(const std::string& def) const;
+    JsonArray toArray(const JsonArray& def) const;
+    JsonObject toObject(const JsonObject& def) const;
+
+    bool toBool() const;
     float toFloat() const;
     double toDouble() const;
     std::string toString() const;
     JsonArray toArray() const;
     JsonObject toObject() const;
+
+    std::string moveToString();
+    JsonArray moveToArray();
+    JsonObject moveToObject();
+
+    std::string moveToString(const std::string& def);
+    JsonArray moveToArray(const JsonArray& def);
+    JsonObject moveToObject(const JsonObject& def);
 
     inline const std::string& const_string() const;
     inline const JsonArray& const_array() const;
@@ -69,6 +110,13 @@ public:
 
     void parseJsonValue(JsonIStream& charSeq);
     bool parseFromInputStream(JsonIStream &charSeq);
+    bool serializeToOStream(std::ostream* os, int tab_size) const;
+
+#ifdef JSON_DEBUG
+    bool contains_recurse(const JsonValue* value) const;
+    bool contains_recurse(const JsonArray *arr) const;
+    bool contains_recurse(const JsonObject *obj) const;
+#endif // JSON_DEBUG
 private:
     JsonValueType d_valueType;
     union {
@@ -187,4 +235,7 @@ JsonObject *JsonValue::mutable_object()
 }
 
 END_JSON_NAMESPACE
+
+JSON_NAMESPACE::JsonValue operator"" _json(const char* json, std::size_t);
+
 #endif // JSONVALUE_H

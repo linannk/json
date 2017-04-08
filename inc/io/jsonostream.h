@@ -1,0 +1,7 @@
+#ifndef JSONOSTREAM_H
+#define JSONOSTREAM_H
+#include "jsondef.h"
+BEGIN_JSON_NAMESPACE
+
+END_JSON_NAMESPACE
+#endif //! JSONOSTREAM_H

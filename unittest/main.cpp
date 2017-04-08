@@ -1,46 +1,41 @@
 #include "jsonvalue.h"
 #include "jsonobject.h"
 #include "jsonarray.h"
-#include "jsonstringistream.h"
-#include "jsonutf8fileistream.h"
+#include "io/jsonstringistream.h"
+#include "io/jsonutf8fileistream.h"
 #include <stdio.h>
 #include <iostream>
 #include <chrono>
 
+#define BEGIN_CHRONO { auto beg_chrono_time = std::chrono::high_resolution_clock::now();
+
+#define END_CHRONO \
+    auto end_chrono_time = std::chrono::high_resolution_clock::now(); \
+    std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end_chrono_time - beg_chrono_time).count() << std::endl; }
+
 int main(int argc, char *argv[])
 {
-    json::JsonObject json_object;
-    const char* platform = "linux_x86";
-    const char* workdir = ".";
-    const char* json_file = "/home/linan/Desktop/1.json";
+    json::JsonObject j = R"({"name":"linane","age":123})"_json;
+    j.serializeToOStream(&std::cout, 0);
+    std::cout << std::endl;
 
-    json::JsonUtf8FileIStream json_file_seq(json_file);
+    json::JsonArray json_array = R"(["linan", "lihong", "jhon"])"_json;
+    json_array.serializeToOStream(&std::cout, 0);
+    std::cout << std::endl;
 
-    auto beg = std::chrono::high_resolution_clock::now();
-    json_object.parseFromInputStream(json_file_seq);
-    auto end = std::chrono::high_resolution_clock::now();
+    json::JsonValue json_value = R"("linannk")"_json;
+    std::cout << json_value.serializeToOStream(&std::cout, 0);
+    std::cout << std::endl;
 
-    std::cout << std::chrono::duration_cast<std::chrono::nanoseconds>(end - beg).count() << std::endl;
+    json_value["name"] = "linan";
+    json_value["age"] = 13.0;
 
-//    return 0;
-    auto p_iter = json_object.find(platform);
-    if (p_iter == json_object.end()) {
-        std::cerr << platform << "is not found in json file." << std::endl;
-        return 1;
-    }
+    json_value.serializeToOStream(&std::cout, 0);
 
-    std::cout << json_object["version"].toString() << std::endl;
-    std::cout << p_iter->first << std::endl;
-    for (const auto& p : p_iter->second.toObject()) {
-        std::cout << "  " << p.first << std::endl;
-        for (const auto& l : p.second.toObject()) {
-            std::cout << "    " << l.first << std::endl;
-            for (const auto& i : l.second.toObject()) {
-                std::cout << "      " << i.first << " : " << i.second.toString() << std::endl;
-            }
-            std::cout << std::endl;
-        }
-    }
-
+    json::JsonObject h = std::move(json_value);
+    json_value.serializeToOStream(&std::cout, 0);
+    std::cout << std::endl;
+    h.serializeToOStream(&std::cout, 0);
+    std::cout << std::endl;
     return 0;
 }

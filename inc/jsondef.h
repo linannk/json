@@ -5,6 +5,8 @@
 #define BEGIN_JSON_NAMESPACE namespace JSON_NAMESPACE {
 #define END_JSON_NAMESPACE }
 
+#define JSON_TAB_OFFSET 2
+
 #define JSON_COMMA ','
 #define JSON_QUOTE '\"'
 #define JSON_OPENBRACE '{'
@@ -17,4 +19,9 @@
 #define JSON_SCIENTIFIC_E_LOWER 'e'
 #define JSON_FLOAT_F_UPPER 'F'
 #define JSON_FLOAT_F_LOWER 'f'
+
+#if defined(_DEBUG) || defined(DEBUG)
+#define JSON_DEBUG
+#endif
+
 #endif // JSONDEF_H
